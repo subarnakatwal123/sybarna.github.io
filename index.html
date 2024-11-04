@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subarna Katwal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Core Styling */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+            overflow: hidden;
+        }
+
+        /* Fading Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8), rgba(50, 50, 50, 0.8));
+            filter: blur(10px);
+            z-index: 0;
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Animated Header */
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            color: #ffffff;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeSlideIn 1s forwards 0.3s;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Subtitle */
+        p {
+            font-size: 1.3em;
+            color: #b0b0b0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeSlideIn 1s forwards 0.6s;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animation */
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Social Media Icons on Left with Animation */
+        .social-icons {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: translateY(-50%) translateX(-50px);
+            opacity: 0;
+            animation: slideInLeft 1s forwards 0.8s;
+        }
+
+        /* Slide-in animation for social icons */
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateY(-50%) translateX(-50px); }
+            100% { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        /* Icon Button Styling */
+        .social-icons a, .social-icons .project-icon {
+            color: #ffffff;
+            font-size: 1.5em;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            transition: transform 0.3s, background-color 0.3s, color 0.3s;
+            text-decoration: none;
+            position: relative;
+        }
+
+        /* Project Button Styling (Icon with Tooltip) */
+        .social-icons .project-icon {
+            font-size: 1.2em;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .social-icons .project-icon::after {
+            content: 'Projects';
+            position: absolute;
+            left: 120%;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.9);
+            color: #0a0a0a;
+            padding: 5px 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.8em;
+            top: 50%;
+            transform: translate(-10px, -50%);
+        }
+
+        .social-icons .project-icon:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hover Effect for Icons */
+        .social-icons a:hover, .social-icons .project-icon:hover {
+            background-color: #ffffff;
+            color: #0a0a0a;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8em;
+            color: #b0b0b0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            opacity: 0.8;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            p { font-size: 1.2em; }
+            .social-icons a, .social-icons .project-icon { width: 40px; height: 40px; }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: 2em; }
+            p { font-size: 1em; }
+            .social-icons { left: 15px; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Subarna Katwal</h1>
+        <p>Cybersecurity Enthusiast</p>
+    </div>
+
+    <!-- Social Media Links with Project Icon -->
+    <div class="social-icons">
+        <a href="projects.html" class="project-icon" aria-label="Projects"><i class="fas fa-briefcase"></i></a> <!-- Project Icon Button -->
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>"Wasted enough time for today 🦖"</p>
+    </div>
+</body>
+</html>
