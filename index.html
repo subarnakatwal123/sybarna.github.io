@@ -15,21 +15,57 @@
             height: 100vh;
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            color: #ffffff;
-            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+            color: #e0e0e0;
             overflow: hidden;
+            background-color: #0a0a0a;
         }
 
-        /* Fading Background */
+        /* Advanced Nebula Background */
         .background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8), rgba(50, 50, 50, 0.8));
-            filter: blur(10px);
+            background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #000);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
             z-index: 0;
+            overflow: hidden;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% {
+                background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #0a0a0a);
+            }
+            50% {
+                background: radial-gradient(circle at 50% 50%, #23233d, #0a0a0a, #131326);
+            }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(200, 200, 255, 0.8);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-120vh) translateX(25vw); }
+        }
+
+        /* Random Particle Placement */
+        .particle:nth-child(odd) {
+            left: calc(50% - 90px);
+            animation-duration: 12s;
+        }
+        .particle:nth-child(even) {
+            left: calc(50% + 90px);
+            animation-duration: 16s;
         }
 
         /* Main Content */
@@ -38,141 +74,99 @@
             z-index: 1;
         }
 
-        /* Animated Header */
+        /* Enhanced Title Animation */
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             margin: 0;
             color: #ffffff;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeSlideIn 1s forwards 0.3s;
+            animation: revealWave 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
+            letter-spacing: 1px;
+        }
+
+        @keyframes revealWave {
+            0%, 100% { color: #ffffff; }
+            50% { color: #6a6a80; }
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #d3d3d3;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* Subtitle */
-        p {
-            font-size: 1.3em;
-            color: #b0b0b0;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeSlideIn 1s forwards 0.6s;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Animation */
-        @keyframes fadeSlideIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Social Media Icons on Left with Animation */
+        /* Interactive Social Media Links */
         .social-icons {
             position: fixed;
             top: 50%;
             left: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            transform: translateY(-50%) translateX(-50px);
-            opacity: 0;
-            animation: slideInLeft 1s forwards 0.8s;
+            gap: 25px;
+            transform: translateY(-50%);
+            z-index: 1;
         }
 
-        /* Slide-in animation for social icons */
-        @keyframes slideInLeft {
-            0% { opacity: 0; transform: translateY(-50%) translateX(-50px); }
-            100% { opacity: 1; transform: translateY(-50%) translateX(0); }
-        }
-
-        /* Icon Button Styling */
-        .social-icons a, .social-icons .project-icon {
-            color: #ffffff;
-            font-size: 1.5em;
-            width: 45px;
-            height: 45px;
+        .social-icons a {
+            color: #d3d3d3;
+            font-size: 1.8em;
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #ffffff;
+            border: 2px solid #d3d3d3;
             border-radius: 50%;
-            transition: transform 0.3s, background-color 0.3s, color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
-            position: relative;
         }
 
-        /* Project Button Styling (Icon with Tooltip) */
-        .social-icons .project-icon {
-            font-size: 1.2em;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .social-icons .project-icon::after {
-            content: 'Projects';
-            position: absolute;
-            left: 120%;
-            white-space: nowrap;
-            background: rgba(255, 255, 255, 0.9);
-            color: #0a0a0a;
-            padding: 5px 10px;
-            border-radius: 5px;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: opacity 0.3s, transform 0.3s;
-            font-size: 0.8em;
-            top: 50%;
-            transform: translate(-10px, -50%);
-        }
-
-        .social-icons .project-icon:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Hover Effect for Icons */
-        .social-icons a:hover, .social-icons .project-icon:hover {
-            background-color: #ffffff;
-            color: #0a0a0a;
-            transform: scale(1.1);
+        .social-icons a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px #ffffff;
         }
 
         /* Footer */
         .footer {
             position: fixed;
-            bottom: 10px;
+            bottom: 15px;
             width: 100%;
             text-align: center;
-            font-size: 0.8em;
-            color: #b0b0b0;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-            opacity: 0.8;
+            font-size: 0.85em;
+            color: #8a8a8a;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
         }
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            p { font-size: 1.2em; }
-            .social-icons a, .social-icons .project-icon { width: 40px; height: 40px; }
+            h1 { font-size: 3em; }
+            p { font-size: 1.1em; }
+            .social-icons a { width: 45px; height: 45px; }
         }
         @media (max-width: 480px) {
-            h1 { font-size: 2em; }
+            h1 { font-size: 2.5em; }
             p { font-size: 1em; }
-            .social-icons { left: 15px; gap: 15px; }
+            .social-icons { left: 15px; gap: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
-
+    <!-- Particles -->
+    <div class="particle" style="top: 10%; left: 30%;"></div>
+    <div class="particle" style="top: 20%; left: 75%;"></div>
+    <div class="particle" style="top: 85%; left: 42%;"></div>
+    <div class="particle" style="top: 90%; left: 63%;"></div>
+    
     <!-- Main Content -->
     <div class="container">
         <h1>Subarna Katwal</h1>
-        <p>Cybersecurity Enthusiast</p>
+        <p>Cybersecurity Aspirant | Commanding Authority</p>
     </div>
 
-    <!-- Social Media Links with Project Icon -->
+    <!-- Social Media Links -->
     <div class="social-icons">
-        <a href="projects.html" class="project-icon" aria-label="Projects"><i class="fas fa-briefcase"></i></a> <!-- Project Icon Button -->
+        <a href="projects.html" class="project-icon" aria-label="Projects"><i class="fas fa-briefcase"></i></a>
         <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
@@ -181,7 +175,7 @@
     
     <!-- Footer -->
     <div class="footer">
-        <p>"Wasted enough time for today 🦖"</p>
+        <p>"Every moment counts. Lead, Secure, Conquer."</p>
     </div>
 </body>
 </html>
