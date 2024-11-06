@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -262,3 +263,225 @@
     </div>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title and Meta Description for SEO -->
+<title>Subarna Katwal - Cybersecurity Aspirant from Nepal</title>
+<meta name="description" content="Official portfolio of Subarna Katwal, a cybersecurity aspirant from Madan Bhandari Memorial College, Nepal. Discover projects, skills, and more.">
+<meta name="keywords" content="Subarna Katwal, cybersecurity, Nepal, Madan Bhandari Memorial College, portfolio, security, aspirant, digital security, cyber expert">
+<meta name="author" content="Subarna Katwal">
+
+<!-- Open Graph Meta Tags for Social Media Preview -->
+<meta property="og:title" content="Subarna Katwal - Cybersecurity Aspirant">
+<meta property="og:description" content="Explore the official portfolio of Subarna Katwal, a cybersecurity aspirant from Madan Bhandari Memorial College, Nepal.">
+<meta property="og:image" content="path/to/your-image.jpg"> <!-- Replace with your profile image URL if available -->
+<meta property="og:url" content="https://your-website.com">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card Data for Twitter Preview -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Subarna Katwal - Cybersecurity Aspirant">
+<meta name="twitter:description" content="Official portfolio of Subarna Katwal, aspiring cybersecurity expert from Nepal.">
+<meta name="twitter:image" content="path/to/your-image.jpg"> <!-- Replace with your profile image URL if available -->
+
+<!-- Structured Data Markup for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Subarna Katwal",
+  "jobTitle": "Cybersecurity Aspirant",
+  "alumniOf": "Madan Bhandari Memorial College",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "Nepal"
+  },
+  "sameAs": [
+    "https://github.com/YourGitHubUsername", 
+    "https://linkedin.com/in/YourLinkedInUsername", 
+    "https://facebook.com/YourFacebookUsername"
+  ],
+  "url": "https://your-website.com"
+}
+</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Core Styling */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #e0e0e0;
+            overflow: hidden;
+            background-color: #0a0a0a;
+        }
+
+        /* Advanced Nebula Background */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #000);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% {
+                background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #0a0a0a);
+            }
+            50% {
+                background: radial-gradient(circle at 50% 50%, #23233d, #0a0a0a, #131326);
+            }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(200, 200, 255, 0.8);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-120vh) translateX(25vw); }
+        }
+
+        /* Random Particle Placement */
+        .particle:nth-child(odd) {
+            left: calc(50% - 90px);
+            animation-duration: 12s;
+        }
+        .particle:nth-child(even) {
+            left: calc(50% + 90px);
+            animation-duration: 16s;
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Enhanced Title Animation */
+        h1 {
+            font-size: 3.5em;
+            margin: 0;
+            color: #ffffff;
+            animation: revealWave 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
+            letter-spacing: 1px;
+        }
+
+        @keyframes revealWave {
+            0%, 100% { color: #ffffff; }
+            50% { color: #6a6a80; }
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #d3d3d3;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Interactive Social Media Links */
+        .social-icons {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .social-icons a {
+            color: #d3d3d3;
+            font-size: 1.8em;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #d3d3d3;
+            border-radius: 50%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px #ffffff;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.85em;
+            color: #8a8a8a;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            p { font-size: 1.1em; }
+            .social-icons a { width: 45px; height: 45px; }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5em; }
+            p { font-size: 1em; }
+            .social-icons { left: 15px; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <!-- Particles -->
+    <div class="particle" style="top: 10%; left: 30%;"></div>
+    <div class="particle" style="top: 20%; left: 75%;"></div>
+    <div class="particle" style="top: 85%; left: 42%;"></div>
+    <div class="particle" style="top: 90%; left: 63%;"></div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Subarna Katwal</h1>
+        <p>Cybersecurity Aspirant | Commanding Authority</p>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-icons">
+        <a href="projects.html" class="project-icon" aria-label="Projects"><i class="fas fa-briefcase"></i></a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>"Every moment counts. Lead, Secure, Conquer."</p>
+    </div>
+</body>
+</html>
+>>>>>>> e5aaac01fed80eb77896bfdc51496a55097e91ae
