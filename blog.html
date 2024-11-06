@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Subarna Katwal</title>
+    
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Core Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #e0e0e0;
+            margin: 0;
+            background-color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px;
+            text-align: center;
+            background-color: #131326;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.5);
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1.5px;
+            animation: fadeInSlide 1.5s ease-out;
+        }
+
+        /* Blog Section */
+        .blog-container {
+            max-width: 1100px;
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            z-index: 1;
+            justify-content: space-between;
+        }
+
+        .blog-post {
+            background: #1c1c30;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            cursor: pointer;
+            color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive & Dynamic Sizing for Blog Cards */
+        .blog-post.long-vertical {
+            flex: 1 1 100%;
+            height: 400px;
+        }
+
+        .blog-post.medium-vertical {
+            flex: 1 1 48%;
+            height: 300px;
+        }
+
+        .blog-post.small-square {
+            flex: 1 1 30%;
+            height: 250px;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.5);
+        }
+
+        .blog-post h2 {
+            font-size: 1.6em;
+            margin: 0 0 10px;
+            color: #ffffff;
+        }
+
+        .blog-post p {
+            font-size: 1em;
+            line-height: 1.6em;
+            color: #d3d3d3;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            color: #4e94fb;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            color: #e0e0e0;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            overflow-y: auto;
+            z-index: 2;
+        }
+
+        .modal-content {
+            background: #131326;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.5);
+        }
+
+        .modal-content h2 {
+            font-size: 2.2em;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 1.1em;
+            color: #d3d3d3;
+            line-height: 1.8em;
+        }
+
+        .close-modal {
+            font-size: 1.5em;
+            color: #d3d3d3;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Blog</h1>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-container">
+        <div class="blog-post long-vertical">
+            <h2>The Importance of Cyber Hygiene</h2>
+            <p>Understanding the basics of cyber hygiene is crucial in today’s digital world...</p>
+            <span class="read-more" onclick="openModal('cyber-hygiene')">Read More</span>
+        </div>
+
+        <div class="blog-post medium-vertical">
+            <h2>Top 5 Cybersecurity Trends of 2024</h2>
+            <p>Explore the latest trends in cybersecurity, including advancements in AI-driven security...</p>
+            <span class="read-more" onclick="openModal('trends-2024')">Read More</span>
+        </div>
+
+        <div class="blog-post small-square">
+            <h2>Getting Started with Ethical Hacking</h2>
+            <p>Are you interested in ethical hacking? This guide will walk you through...</p>
+            <span class="read-more" onclick="openModal('ethical-hacking')">Read More</span>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div class="modal" id="modal-cyber-hygiene">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h2>The Importance of Cyber Hygiene</h2>
+            <p>Cyber hygiene is about maintaining and improving cybersecurity to prevent data breaches, hacking, and other security issues...</p>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-trends-2024">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h2>Top 5 Cybersecurity Trends of 2024</h2>
+            <p>With evolving threats, cybersecurity trends in 2024 focus on AI-driven solutions, zero-trust frameworks, and more...</p>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-ethical-hacking">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h2>Getting Started with Ethical Hacking</h2>
+            <p>This guide covers the first steps into ethical hacking, including essential tools, resources, and best practices...</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById('modal-' + id).style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+        }
+    </script>
+
+</body>
+</html>

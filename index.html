@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subarna Katwal - Aspiring Cybersecurity Expert | Portfolio</title>
+    <meta name="description" content="Explore the portfolio of Subarna Katwal, a cybersecurity aspirant dedicated to building a secure digital world. Discover projects, skills, and expertise.">
+    <meta name="keywords" content="Subarna Katwal, cybersecurity, Nepal, cybersecurity aspirant, digital security, Madan Bhandari Memorial College, portfolio, security projects">
+    <meta name="author" content="Subarna Katwal">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags for Social Media Preview -->
+    <meta property="og:title" content="Subarna Katwal - Aspiring Cybersecurity Expert">
+    <meta property="og:description" content="Explore the official portfolio of Subarna Katwal, an aspiring cybersecurity expert from Nepal with a focus on digital security.">
+    <meta property="og:image" content="./pictures/dvpic.png">
+    <meta property="og:url" content="https://subarnakatwal.com.np">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Data for Twitter Preview -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Subarna Katwal - Cybersecurity Portfolio">
+    <meta name="twitter:description" content="Cybersecurity-focused portfolio of Subarna Katwal from Nepal. Discover projects, skills, and expertise.">
+    <meta name="twitter:image" content="./pictures/dvpic.png">
+
+    <!-- Structured Data Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Subarna Katwal",
+      "jobTitle": "Cybersecurity Aspirant",
+      "alumniOf": "Madan Bhandari Memorial College",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kathmandu",
+        "addressRegion": "Bagmati",
+        "addressCountry": "Nepal"
+      },
+      "sameAs": [
+        "https://github.com/sybarna",
+        "https://www.linkedin.com/in/subarnakatwal",
+        "https://www.facebook.com/sybarnakatwal",
+        "https://www.instagram.com/sybarnakatwal"
+      ],
+      "url": "subarnakatwal.com.np"
+    }
+    </script>
+
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Core Styling */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #e0e0e0;
+            overflow: hidden;
+            background-color: #0a0a0a;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #000);
+            animation: nebulaPulse 15s ease-in-out infinite alternate;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #0a0a0a); }
+            50% { background: radial-gradient(circle at 50% 50%, #23233d, #0a0a0a, #131326); }
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Enhanced Title Animation */
+        h1 {
+            font-size: 3.5em;
+            margin: 0;
+            color: #ffffff;
+            animation: revealWave 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
+            letter-spacing: 1px;
+        }
+
+        @keyframes revealWave {
+            0%, 100% { color: #ffffff; }
+            50% { color: #6a6a80; }
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #d3d3d3;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Top Center Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #d3d3d3;
+            font-size: 1.8em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 10px #ffffff;
+        }
+
+        /* Sidebar Buttons */
+        .sidebar-buttons {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .sidebar-buttons a {
+            color: #d3d3d3;
+            font-size: 1.4em;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #d3d3d3;
+            border-radius: 50%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .sidebar-buttons a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px #ffffff;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.85em;
+            color: #8a8a8a;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            p { font-size: 1.1em; }
+            .sidebar-buttons a { width: 45px; height: 45px; }
+        }
+    </style>
+        <style>
+            /* Social Icons Redesign */
+            .social-icons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                margin-top: 20px;
+            }
+    
+            .social-icons a {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 2em;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #4e54c8, #8f94fb);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+                overflow: hidden;
+            }
+    
+            .social-icons a::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+                opacity: 0;
+                transition: opacity 0.3s;
+                z-index: 0;
+            }
+    
+            .social-icons a i {
+                position: relative;
+                z-index: 1;
+            }
+    
+            .social-icons a:hover {
+                transform: rotate(10deg) scale(1.15);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+            }
+    
+            .social-icons a:hover::before {
+                opacity: 1;
+            }
+    
+            .social-icons a:hover i {
+                color: #080808;
+            }
+        </style>
+    
+</head>
+<body>
+    <div class="background"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Subarna Katwal</h1>
+        <p>Cybersecurity Aspirant | Commanding Authority</p>
+        
+        <!-- Social Icons in Top Center -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/sybarnakatwal/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/sybarna" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.facebook.com/sybarnakatwal/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/subarnakatwal" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <!-- Sidebar Buttons -->
+    <div class="sidebar-buttons">
+        <a href="projects.html" aria-label="Projects"><i class="fas fa-briefcase"></i></a>
+        <a href="about.html" aria-label="About"><i class="fas fa-user"></i></a>
+        <a href="blog.html" aria-label="Blog"><i class="fas fa-blog"></i></a>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>"Every moment counts. Lead, Secure, Conquer."</p>
+    </div>
+</body>
+</html>
