@@ -3,156 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Subarna Katwal - Cybersecurity Aspirant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    <title>About | Subarna Katwal - Cybersecurity Enthusiast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Core Styling */
+        /* Global Styling */
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e1e;
+            color: #f5f5f5;
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            color: #e0e0e0;
-            background-color: #0a0a0a;
-            overflow-x: hidden;
-        }
-
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #000);
-            animation: nebulaPulse 15s ease-in-out infinite alternate;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        @keyframes nebulaPulse {
-            0%, 100% { background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #0a0a0a); }
-            50% { background: radial-gradient(circle at 50% 50%, #23233d, #0a0a0a, #131326); }
-        }
-
-        /* About Section Styling */
-        .about-container {
-            position: relative;
-            z-index: 1;
+            padding: 0;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 40px 20px;
-            max-width: 800px;
-            margin: 50px;
-            border-radius: 12px;
-            background: rgba(20, 20, 30, 0.9);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            min-height: 100vh;
         }
 
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #4e54c8;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px #ffffff;
-        }
-
-        h1 {
-            font-size: 2.8em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0, 102, 255, 0.8);
-            animation: revealWave 4s ease-in-out infinite;
-            margin-bottom: 10px;
-        }
-
-        @keyframes revealWave {
-            0%, 100% { color: #ffffff; }
-            50% { color: #6a6a80; }
-        }
-
-        p.bio {
-            font-size: 1.2em;
-            color: #d3d3d3;
-            margin: 0 auto 20px;
-            max-width: 600px;
-            line-height: 1.6em;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Skills Section Styling */
-        .skills-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            max-width: 600px;
-            margin-top: 20px;
-        }
-
-        .skill {
-            background: linear-gradient(135deg, #4e54c8, #8f94fb);
-            color: #ffffff;
-            font-size: 1em;
-            padding: 10px 20px;
+        /* Container for About Section */
+        .about-container {
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            background-color: #2b2b2b;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        .skill:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        /* Profile Image Styling */
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
 
-        /* Footer Quote */
-        .footer {
-            margin-top: 30px;
-            font-size: 0.85em;
-            color: #8a8a8a;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        /* Content Styling */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #ffd700;
+            margin: 0;
+        }
+
+        .content p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #ddd;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        /* Quote Styling */
+        .quote {
+            font-style: italic;
+            color: #ffd700;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Media Query for Responsiveness */
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .content h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="background"></div>
-    
+
     <div class="about-container">
-        <!-- Profile Picture -->
-        <img src="./pictures/dvpic.png" alt="Subarna Katwal" class="profile-img">
-
-        <!-- Name and Bio -->
-        <h1>Subarna Katwal</h1>
-        <p class="bio">Hello! I'm Subarna, a cybersecurity enthusiast from Nepal, passionate about strengthening digital defenses. With a commitment to exploring advanced security practices, I'm honing my skills in ethical hacking, cloud security, and network defense. I aim to create a safer digital world, one challenge at a time.</p>
-
-        <!-- Skills Section -->
-        <div class="skills-container">
-            <div class="skill">Cybersecurity</div>
-            <div class="skill">Ethical Hacking</div>
-            <div class="skill">Network Security</div>
-            <div class="skill">Python</div>
-            <div class="skill">Linux</div>
-            <div class="skill">Cloud Security</div>
+        <!-- Profile Picture Section -->
+        <div>
+            <img src="https://via.placeholder.com/300" alt="Subarna Katwal" class="profile-img">
         </div>
-
-        <!-- Footer Quote -->
-        <div class="footer">
-            <p>"Every moment counts. Lead, Secure, Conquer."</p>
+        
+        <!-- About Content Section -->
+        <div class="content">
+            <h1>Subarna Katwal</h1>
+            <p>
+                From a small town in Nepal, Subarna Katwal has always been fascinated by the invisible world of cybersecurity. 
+                Starting with nothing but an old laptop and a strong resolve, he taught himself the fundamentals of digital security, 
+                often facing power cuts, limited resources, and endless nights of coding and reading. Every challenge only strengthened 
+                his determination to carve out a meaningful role in this field.
+            </p>
+            <p>
+                Today, Subarna is not just another cybersecurity student; he is a driven individual with a clear mission: to make the digital 
+                world a safer place. He has mastered skills in ethical hacking, cloud security, and network defense, though he knows his journey 
+                is just beginning. With unwavering resilience, he continues to push his limits, turning setbacks into setups for success.
+            </p>
+            <p>
+                Subarna’s journey is one of grit and passion—a story of learning from every setback and looking forward to a bright future. He believes 
+                that, with dedication, he can bring value to the field and make an impact. A future in cybersecurity awaits him, where he’ll be 
+                contributing to a safer online space for everyone.
+            </p>
+            <p class="quote">"Security is not a product, but a journey."</p>
         </div>
     </div>
+
 </body>
 </html>
