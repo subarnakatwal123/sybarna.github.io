@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Container for About Section */
@@ -29,7 +30,9 @@
             gap: 20px;
             background-color: #2b2b2b;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 255, 145, 0.3);
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0;
         }
 
         /* Profile Image Styling */
@@ -38,7 +41,16 @@
             max-width: 300px;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 15px rgba(0, 255, 145, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: zoomIn 1s ease-out forwards;
+        }
+
+        /* Hover effect for Profile Image */
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 145, 0.9);
         }
 
         /* Content Styling */
@@ -46,13 +58,18 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+            animation-delay: 0.3s;
         }
 
         .content h1 {
             font-size: 2.5em;
             font-weight: 600;
-            color: #ffd700;
+            color: #00ff91;
+            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
             margin: 0;
+            animation: neonGlow 2s ease-in-out infinite alternate;
         }
 
         .content p {
@@ -66,9 +83,32 @@
         /* Quote Styling */
         .quote {
             font-style: italic;
-            color: #ffd700;
+            color: #00ff91;
+            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
             margin-top: 10px;
             text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Neon Glow Animation for the Name */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 5px #00ff91, 0 0 10px #00ff91, 0 0 20px #00ff91; }
+            50% { text-shadow: 0 0 15px #00ff91, 0 0 25px #00ff91, 0 0 35px #00ff91; }
         }
 
         /* Media Query for Responsiveness */
