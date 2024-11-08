@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,188 +49,159 @@
     <!-- Fonts and Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+   /* Core Styling */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #e8e8e8;
+    overflow: hidden;
+    background-color: #1d1d2b;
+}
 
-    <style>
-        /* Core Styling */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            color: #e0e0e0;
-            overflow: hidden;
-            background-color: #0a0a0a;
-        }
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #1d1d2b, #2a2a42, #0e0e1a);
+    animation: nebulaPulse 15s ease-in-out infinite alternate;
+    z-index: 0;
+}
 
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #000);
-            animation: nebulaPulse 15s ease-in-out infinite alternate;
-            z-index: 0;
-            overflow: hidden;
-        }
+@keyframes nebulaPulse {
+    0%, 100% { background: radial-gradient(circle at 50% 50%, #1d1d2b, #2a2a42, #1d1d2b); }
+    50% { background: radial-gradient(circle at 50% 50%, #35355e, #1d1d2b, #2a2a42); }
+}
 
-        @keyframes nebulaPulse {
-            0%, 100% { background: radial-gradient(circle at 50% 50%, #0a0a0a, #131326, #0a0a0a); }
-            50% { background: radial-gradient(circle at 50% 50%, #23233d, #0a0a0a, #131326); }
-        }
+/* Main Content */
+.container {
+    text-align: center;
+    z-index: 1;
+}
 
-        /* Main Content */
-        .container {
-            text-align: center;
-            z-index: 1;
-        }
+/* Title Animation */
+h1 {
+    font-size: 3.5em;
+    margin: 0;
+    color: #9cc9ff;
+    animation: revealWave 4s ease-in-out infinite;
+    text-shadow: 0 0 12px rgba(156, 201, 255, 0.6);
+    letter-spacing: 1px;
+}
 
-        /* Enhanced Title Animation */
-        h1 {
-            font-size: 3.5em;
-            margin: 0;
-            color: #ffffff;
-            animation: revealWave 4s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
-            letter-spacing: 1px;
-        }
+@keyframes revealWave {
+    0%, 100% { color: #9cc9ff; }
+    50% { color: #80b3ff; }
+}
 
-        @keyframes revealWave {
-            0%, 100% { color: #ffffff; }
-            50% { color: #6a6a80; }
-        }
+p {
+    font-size: 1.2em;
+    color: #e3e3e3;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
 
-        p {
-            font-size: 1.3em;
-            color: #d3d3d3;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
+/* Enhanced Social Icons */
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+}
 
-        /* Top Center Social Icons */
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
+.social-icons a {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9cc9ff;
+    font-size: 1.8em;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3a3a50, #5e5e84);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    overflow: hidden;
+    text-decoration: none; /* Remove underline */
+}
 
-        .social-icons a {
-            color: #d3d3d3;
-            font-size: 1.8em;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-        }
+.social-icons a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 0;
+}
 
-        .social-icons a:hover {
-            transform: scale(1.15);
-            box-shadow: 0 0 10px #ffffff;
-        }
+.social-icons a:hover {
+    transform: rotate(8deg) scale(1.1);
+    background: linear-gradient(135deg, #5e5e84, #3a3a50);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
 
-        /* Sidebar Buttons */
-        .sidebar-buttons {
-            position: fixed;
-            top: 50%;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            transform: translateY(-50%);
-            z-index: 1;
-        }
+.social-icons a:hover::before {
+    opacity: 1;
+}
 
-        .sidebar-buttons a {
-            color: #d3d3d3;
-            font-size: 1.4em;
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #d3d3d3;
-            border-radius: 50%;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-        }
+/* Sidebar Buttons */
+.sidebar-buttons {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
 
-        .sidebar-buttons a:hover {
-            transform: scale(1.15);
-            box-shadow: 0 0 20px #ffffff;
-        }
+.sidebar-buttons a {
+    color: #80b3ff;
+    font-size: 1.4em;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #9cc9ff;
+    border-radius: 50%;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
 
-        .footer {
-            position: fixed;
-            bottom: 15px;
-            width: 100%;
-            text-align: center;
-            font-size: 0.85em;
-            color: #8a8a8a;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-        }
+.sidebar-buttons a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ffffff;
+}
 
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            h1 { font-size: 3em; }
-            p { font-size: 1.1em; }
-            .sidebar-buttons a { width: 45px; height: 45px; }
-        }
-    </style>
-        <style>
-            /* Social Icons Redesign */
-            .social-icons {
-                display: flex;
-                gap: 15px;
-                justify-content: center;
-                margin-top: 20px;
-            }
-    
-            .social-icons a {
-                position: relative;
-                width: 60px;
-                height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #fff;
-                font-size: 2em;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #4e54c8, #8f94fb);
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-                transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-                overflow: hidden;
-            }
-    
-            .social-icons a::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
-                opacity: 0;
-                transition: opacity 0.3s;
-                z-index: 0;
-            }
-    
-            .social-icons a i {
-                position: relative;
-                z-index: 1;
-            }
-    
-            .social-icons a:hover {
-                transform: rotate(10deg) scale(1.15);
-                box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
-            }
-    
-            .social-icons a:hover::before {
-                opacity: 1;
-            }
-    
-            .social-icons a:hover i {
-                color: #080808;
-            }
-        </style>
-    
+.footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.85em;
+    color: #a8a8b2;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 2.8em; }
+    p { font-size: 1em; }
+    .sidebar-buttons a { width: 40px; height: 40px; }
+}
+
+
+</style>    
 </head>
 <body>
     <div class="background"></div>
@@ -249,6 +219,9 @@
             <a href="https://www.linkedin.com/in/subarnakatwal" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
     </div>
+
+   
+
 
     <!-- Sidebar Buttons -->
     <div class="sidebar-buttons">
