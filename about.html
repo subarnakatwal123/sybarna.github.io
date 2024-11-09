@@ -1,1 +1,145 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Subarna Katwal - Cybersecurity Enthusiast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Container for About Section */
+        .about-container {
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            background-color: #2b2b2b;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 255, 145, 0.3);
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0;
+        }
+        /* Profile Image Styling */
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 145, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: zoomIn 1s ease-out forwards;
+        }
+        /* Hover effect for Profile Image */
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 145, 0.9);
+        }
+        /* Content Styling */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        .content h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #00ff91;
+            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
+            margin: 0;
+            animation: neonGlow 2s ease-in-out infinite alternate;
+        }
+        .content p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #ddd;
+            font-weight: 300;
+            text-align: justify;
+        }
+        /* Quote Styling */
+        .quote {
+            font-style: italic;
+            color: #00ff91;
+            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
+            margin-top: 10px;
+            text-align: center;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Neon Glow Animation for the Name */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 5px #00ff91, 0 0 10px #00ff91, 0 0 20px #00ff91; }
+            50% { text-shadow: 0 0 15px #00ff91, 0 0 25px #00ff91, 0 0 35px #00ff91; }
+        }
+        /* Media Query for Responsiveness */
+        @media (max-width: 768px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .content h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <!-- Profile Picture Section -->
+        <div>
+            <img src="https://via.placeholder.com/300" alt="Subarna Katwal" class="profile-img">
+        </div>
+        
+        <!-- About Content Section -->
+        <div class="content">
+            <h1>Subarna Katwal</h1>
+            <p>
+                From a small town in Nepal, Subarna Katwal has always been fascinated by the invisible world of cybersecurity. 
+                Starting with nothing but an old laptop and a strong resolve, he taught himself the fundamentals of digital security, 
+                often facing power cuts, limited resources, and endless nights of coding and reading. Every challenge only strengthened 
+                his determination to carve out a meaningful role in this field.
+            </p>
+            <p>
+                Today, Subarna is not just another cybersecurity student; he is a driven individual with a clear mission: to make the digital 
+                world a safer place. He has mastered skills in ethical hacking, cloud security, and network defense, though he knows his journey 
+                is just beginning. With unwavering resilience, he continues to push his limits, turning setbacks into setups for success.
+            </p>
+            <p>
+                Subarna’s journey is one of grit and passion—a story of learning from every setback and looking forward to a bright future. He believes 
+                that, with dedication, he can bring value to the field and make an impact. A future in cybersecurity awaits him, where he’ll be 
+                contributing to a safer online space for everyone.
+            </p>
+            <p class="quote">"Security is not a product, but a journey."</p>
+        </div>
+    </div>
+</body>
+</html>
