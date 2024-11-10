@@ -1,145 +1,374 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Subarna Katwal - Cybersecurity Enthusiast</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Subarna Katwal - The Digital Guardian | Cybersecurity Warrior</title>
+    
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="description" content="Enter the digital realm of Subarna Katwal (Subwrn), Nepal's elite cybersecurity specialist. Discover the untold stories of cyber warfare and digital protection.">
+    <meta name="keywords" content="Subarna Katwal, Subwrn, Nepal Cybersecurity, Cyber News, Tech Subarna Katwal, Sybarna, Cybersecurity Expert Nepal, Digital Guardian">
+    <meta name="author" content="Subarna Katwal">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Subarna Katwal - The Digital Guardian">
+    <meta property="og:description" content="Journey through the digital battlegrounds with Nepal's leading cybersecurity warrior">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://subarnakatwal.com.np">
+    
     <style>
-        /* Global Styling */
+        :root {
+            --neon-text-color: #f40;
+            --neon-border-color: #08f;
+            --matrix-green: #00ff00;
+            --cyber-blue: #007bff;
+        }
+        
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--neon-text-color), -2px 0 var(--cyber-blue); }
+            25% { text-shadow: -2px 0 var(--neon-text-color), 2px 0 var(--cyber-blue); }
+            50% { text-shadow: 2px 0 var(--neon-text-color), -2px 0 var(--cyber-blue); }
+            100% { text-shadow: -2px 0 var(--neon-text-color), 2px 0 var(--cyber-blue); }
+        }
+        
+        @keyframes matrix-rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1e1e1e;
-            color: #f5f5f5;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            line-height: 1.6;
             overflow-x: hidden;
         }
-
-        /* Container for About Section */
-        .about-container {
-            max-width: 1200px;
-            margin: 20px;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            background-color: #2b2b2b;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 255, 145, 0.3);
-            animation: fadeIn 1.5s ease-out forwards;
-            opacity: 0;
-        }
-        /* Profile Image Styling */
-        .profile-img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 255, 145, 0.8);
-            transform: scale(0.9);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            animation: zoomIn 1s ease-out forwards;
-        }
-        /* Hover effect for Profile Image */
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 145, 0.9);
-        }
-        /* Content Styling */
-        .content {
+        
+        #login-screen {
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            opacity: 0;
-            animation: slideUp 1s ease-out forwards;
-            animation-delay: 0.3s;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                        url('/api/placeholder/1920/1080') center/cover;
+            position: relative;
+            overflow: hidden;
         }
-        .content h1 {
-            font-size: 2.5em;
-            font-weight: 600;
-            color: #00ff91;
-            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
-            margin: 0;
-            animation: neonGlow 2s ease-in-out infinite alternate;
+        
+        #login-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, transparent 95%, var(--neon-border-color) 100%);
+            animation: matrix-rain 20s linear infinite;
+            opacity: 0.3;
         }
-        .content p {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #ddd;
-            font-weight: 300;
-            text-align: justify;
-        }
-        /* Quote Styling */
-        .quote {
-            font-style: italic;
-            color: #00ff91;
-            text-shadow: 0 0 5px rgba(0, 255, 145, 0.8);
-            margin-top: 10px;
+        
+        .login-box {
+            background: rgba(0,30,60,0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--neon-border-color);
             text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
         }
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .story-card {
+            background: rgba(0,30,60,0.8);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--neon-text-color);
+            transition: transform 0.3s;
         }
-        @keyframes zoomIn {
-            from { transform: scale(0.9); }
-            to { transform: scale(1); }
+        
+        .story-card:hover {
+            transform: translateX(10px);
         }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .story-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 2px solid var(--neon-border-color);
         }
-        /* Neon Glow Animation for the Name */
-        @keyframes neonGlow {
-            0%, 100% { text-shadow: 0 0 5px #00ff91, 0 0 10px #00ff91, 0 0 20px #00ff91; }
-            50% { text-shadow: 0 0 15px #00ff91, 0 0 25px #00ff91, 0 0 35px #00ff91; }
+        
+        .glitch-text {
+            animation: glitch 3s infinite;
+            font-size: 2.5rem;
+            margin: 1rem 0;
         }
-        /* Media Query for Responsiveness */
-        @media (max-width: 768px) {
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-            .content h1 {
-                font-size: 2em;
-            }
+        
+        input {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--neon-border-color);
+            color: var(--matrix-green);
+            padding: 1rem;
+            margin: 1rem 0;
+            width: 100%;
+            font-family: inherit;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-border-color);
+        }
+        
+        button {
+            background: transparent;
+            color: var(--neon-text-color);
+            border: 2px solid var(--neon-text-color);
+            padding: 0.8rem 2.5rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: var(--neon-text-color);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-text-color);
+        }
+        
+        .device-info {
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            color: #888;
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1rem;
+        }
+        
+        #main-content {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 2px solid var(--neon-border-color);
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--neon-text-color);
+            font-size: 2rem;
+            margin: 2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .mission-statement {
+            font-size: 1.2rem;
+            color: var(--cyber-blue);
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid var(--cyber-blue);
+            border-radius: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            color: var(--neon-text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--neon-text-color);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--neon-text-color);
+            color: #000;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--neon-border-color);
+            margin-top: 3rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--neon-border-color);
+        }
+        
+        .timeline-entry {
+            margin: 2rem 0;
+            position: relative;
+            width: 50%;
+            padding: 1rem;
+        }
+        
+        .timeline-entry:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+        }
+        
+        .timeline-entry:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
         }
     </style>
 </head>
 <body>
-    <div class="about-container">
-        <!-- Profile Picture Section -->
-        <div>
-            <img src="https://via.placeholder.com/300" alt="Subarna Katwal" class="profile-img">
-        </div>
-        
-        <!-- About Content Section -->
-        <div class="content">
-            <h1>Subarna Katwal</h1>
-            <p>
-                From a small town in Nepal, Subarna Katwal has always been fascinated by the invisible world of cybersecurity. 
-                Starting with nothing but an old laptop and a strong resolve, he taught himself the fundamentals of digital security, 
-                often facing power cuts, limited resources, and endless nights of coding and reading. Every challenge only strengthened 
-                his determination to carve out a meaningful role in this field.
-            </p>
-            <p>
-                Today, Subarna is not just another cybersecurity student; he is a driven individual with a clear mission: to make the digital 
-                world a safer place. He has mastered skills in ethical hacking, cloud security, and network defense, though he knows his journey 
-                is just beginning. With unwavering resilience, he continues to push his limits, turning setbacks into setups for success.
-            </p>
-            <p>
-                Subarna’s journey is one of grit and passion—a story of learning from every setback and looking forward to a bright future. He believes 
-                that, with dedication, he can bring value to the field and make an impact. A future in cybersecurity awaits him, where he’ll be 
-                contributing to a safer online space for everyone.
-            </p>
-            <p class="quote">"Security is not a product, but a journey."</p>
+    <div id="login-screen">
+        <div class="login-box">
+            <h1 class="glitch-text">TERMINAL ACCESS</h1>
+            <p>Warning: Authorized Personnel Only</p>
+            <input type="password" id="password" placeholder="Enter Security Clearance Code" autocomplete="off">
+            <button onclick="checkPassword()">DECRYPT</button>
+            <div class="device-info" id="deviceInfo"></div>
         </div>
     </div>
+
+    <div id="main-content">
+        <header>
+            <h1 class="glitch-text">SUBARNA KATWAL</h1>
+            <p class="mission-statement">"In the digital realm, where bits and bytes dance in eternal conflict, I stand as the guardian between chaos and order."</p>
+        </header>
+
+        <section class="story-card">
+            <h2 class="section-title">The Digital Guardian Rises</h2>
+            <img src="/api/placeholder/800/400" alt="Cybersecurity Warrior" class="story-image">
+            <p>In the heart of Nepal's digital landscape, a warrior emerged from the shadows. Known by many names - Subwrn, Sybarna - but feared by cyber criminals as "The Digital Guardian." This is not just a story of someone who works in cybersecurity; this is the chronicle of a digital warrior who has dedicated his life to protecting the virtual frontiers of his homeland.</p>
+        </section>
+
+        <div class="timeline">
+            <div class="timeline-entry">
+                <h3>The Origin</h3>
+                <img src="/api/placeholder/600/300" alt="Early Days" class="story-image">
+                <p>It began in the quiet corners of Kathmandu's tech underground. While others saw computers as tools, I saw them as gateways to a dimension that needed protection. Every line of code was a weapon, every protocol a shield.</p>
+            </div>
+
+            <div class="timeline-entry">
+                <h3>The First Battle</h3>
+                <img src="/api/placeholder/600/300" alt="Cyber Battle" class="story-image">
+                <p>The first major cyber attack came without warning. As systems crashed around the country, I stood at the frontlines, a digital sword in hand. That day, I learned that in the cyber realm, we are all connected, all vulnerable, and all worth protecting.</p>
+            </div>
+
+            <div class="timeline-entry">
+                <h3>The Present Mission</h3>
+                <img src="/api/placeholder/600/300" alt="Current Mission" class="story-image">
+                <p>Today, the battles continue. Each day brings new threats, new challenges, and new opportunities to protect those who cannot protect themselves in this digital age. This is not just a job - it's a calling.</p>
+            </div>
+        </div>
+
+        <section id="expertise">
+            <h2 class="section-title">Arsenal of Digital Defense</h2>
+            <div class="story-card">
+                <img src="/api/placeholder/800/400" alt="Digital Arsenal" class="story-image">
+                <ul>
+                    <li>Advanced Penetration Testing</li>
+                    <li>Cyber Threat Intelligence</li>
+                    <li>Security Architecture Design</li>
+                    <li>Incident Response & Recovery</li>
+                    <li>Digital Forensics</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="cyber-news">
+            <h2 class="section-title">Latest Intelligence Reports</h2>
+            <div class="story-card">
+                <img src="/api/placeholder/800/400" alt="Cyber Intelligence" class="story-image">
+                <div id="news-feed">
+                    <p>Intel suggests increasing cyber activities in the region. Stay vigilant. Updates pending...</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="#">Command Center (Twitter)</a>
+                <a href="#">Operations Base (LinkedIn)</a>
+                <a href="#">Code Repository (GitHub)</a>
+            </div>
+            <p>&copy; 2024 Subarna Katwal | The Digital Guardian</p>
+        </footer>
+    </div>
+
+    <script>
+        // Enhanced Device Information Collection
+        function getDeviceInfo() {
+            const info = [];
+            info.push(`[SYSTEM]: Browser Agent: ${navigator.userAgent}`);
+            info.push(`[DISPLAY]: Resolution: ${window.screen.width}x${window.screen.height}`);
+            info.push(`[LOCALE]: System Language: ${navigator.language}`);
+            info.push(`[PLATFORM]: Operating System: ${navigator.platform}`);
+            info.push(`[CONNECTION]: Online Status: ${navigator.onLine ? 'Connected' : 'Offline'}`);
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        document.getElementById('deviceInfo').innerHTML += `<br>[LOCATION]: Coordinates: ${lat}, ${lon}`;
+                    },
+                    error => {
+                        document.getElementById('deviceInfo').innerHTML += '<br>[LOCATION]: Access Denied';
+                    }
+                );
+            }
+            
+            return info.join('<br>');
+        }
+
+        document.getElementById('deviceInfo').innerHTML = getDeviceInfo();
+
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === 'admin') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                alert('Access Denied: Security Protocol Violated');
+            }
+        }
+
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
 </body>
 </html>
