@@ -1,1 +1,1 @@
-This project was solely made with AI. Thanks to Openai
+"Crafted and designed by Subarna Katwal, powered by AI-assisted coding."
