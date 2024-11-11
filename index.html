@@ -3,352 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access Control - Subarna Katwal's Secure Terminal</title>
+    <title>Pop!_OS Lock Screen</title>
     <style>
-        :root {
-            --main-color: #64ffda;
-            --dark-bg: #0a192f;
-            --text-color: #ccd6f6;
-            --error-color: #ff5555;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(94, 92, 230, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(94, 92, 230, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(94, 92, 230, 0.5); }
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 3px 0 var(--main-color), -3px 0 var(--error-color); }
-            50% { text-shadow: -3px 0 var(--main-color), 3px 0 var(--error-color); }
-            100% { text-shadow: 3px 0 var(--main-color), -3px 0 var(--error-color); }
-        }
-
-        @keyframes flicker {
-            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
-                opacity: 0.99;
-            }
-            20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
-                opacity: 0.4;
-            }
+            font-family: 'Fira Sans', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: var(--dark-bg);
-            color: var(--text-color);
+            background-color: #0C0C0C;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #ffffff;
             overflow: hidden;
-            background-image: 
-                linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
-                url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
+            position: relative;
         }
 
-        .scanner {
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: linear-gradient(135deg, #1B1B2B, #0C0C0C);
+            opacity: 0.95;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.8));
             z-index: 1;
         }
 
-        .scanner::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 5px;
-            background: var(--main-color);
-            opacity: 0.1;
-            animation: scanline 6s linear infinite;
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
         }
 
-        .container {
-            background: rgba(10, 25, 47, 0.95);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
-            width: 90%;
-            max-width: 600px;
-            position: relative;
+        .time {
+            font-size: 96px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #F2F2F2;
+        }
+
+        .date {
+            font-size: 24px;
+            color: #A0A0A0;
+            margin-bottom: 60px;
+        }
+
+        .login-container {
+            background: rgba(30, 30, 46, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 400px;
+            border: 1px solid rgba(94, 92, 230, 0.1);
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            background: #5E5CE6;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        .username {
+            font-size: 24px;
+            color: #F2F2F2;
+            margin-bottom: 25px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(94, 92, 230, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #5E5CE6;
+            animation: glow 2s infinite;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hint {
+            color: #FF5D5D;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             z-index: 2;
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 2rem;
+        .key {
+            background: rgba(94, 92, 230, 0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(94, 92, 230, 0.3);
         }
 
-        .logo h1 {
-            color: var(--main-color);
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            animation: glitch 3s infinite;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
-        .logo p {
-            color: var(--text-color);
-            font-size: 1rem;
-            opacity: 0.8;
+        .shake {
+            animation: shake 0.3s ease-in-out;
         }
 
-        .access-level {
+        /* Power options */
+        .power-options {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
             display: flex;
-            justify-content: space-around;
-            margin-bottom: 2rem;
-            gap: 1rem;
+            gap: 20px;
+            z-index: 2;
         }
 
-        .level-btn {
-            background: transparent;
-            border: 2px solid var(--main-color);
-            color: var(--main-color);
-            padding: 0.8rem 1.8rem;
+        .power-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(30, 30, 46, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(94, 92, 230, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-            border-radius: 5px;
-            flex: 1;
-            max-width: 200px;
+            transition: all 0.3s ease;
         }
 
-        .level-btn:hover, .level-btn.active {
-            background: var(--main-color);
-            color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--main-color);
+        .power-btn:hover {
+            background: rgba(94, 92, 230, 0.2);
+            transform: scale(1.1);
         }
 
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--main-color);
-            font-size: 0.9rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(10, 25, 47, 0.5);
-            border: 1px solid var(--main-color);
-            color: var(--text-color);
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--main-color);
-        }
-
-        .system-info {
-            font-size: 0.8rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(100, 255, 218, 0.2);
-            opacity: 0.7;
-        }
-
-        .info-line {
-            margin-bottom: 0.5rem;
-            font-family: monospace;
-        }
-
-        .warning {
-            color: var(--error-color);
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 0.5rem;
-            border: 1px solid var(--error-color);
-            border-radius: 5px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: transparent;
-            border: 2px solid var(--main-color);
-            color: var(--main-color);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 1rem;
-            border-radius: 5px;
-        }
-
-        .submit-btn:hover {
-            background: var(--main-color);
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px var(--main-color);
-        }
-
-        .user-note {
-            text-align: center;
-            margin-top: 1rem;
-            padding: 1rem;
-            border: 1px solid var(--main-color);
-            color: var(--main-color);
-            font-size: 0.9rem;
-            border-radius: 5px;
-            display: none;
-        }
-
-        #userAccess .user-note {
-            display: block;
-        }
-
-        .access-form {
-            display: none;
-        }
-
-        .access-form.active {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-
-            .access-level {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .level-btn {
-                width: 100%;
-                max-width: none;
-            }
+        .power-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #F2F2F2;
         }
     </style>
 </head>
 <body>
-    <div class="scanner"></div>
-    
+    <div class="background"></div>
+    <div class="gradient-overlay"></div>
+
     <div class="container">
-        <div class="logo">
-            <h1>SECURE ACCESS GATEWAY</h1>
-            <p>Subarna Katwal's Protected Terminal</p>
-        </div>
+        <div class="time"></div>
+        <div class="date"></div>
 
-        <div class="access-level">
-            <button class="level-btn" onclick="switchAccess('user')">User Access</button>
-            <button class="level-btn" onclick="switchAccess('admin')">Admin Panel</button>
-        </div>
-
-        <div id="userAccess" class="access-form">
-            <div class="input-group">
-                <label>Public Access Credentials</label>
-                <input type="password" id="userPassword" placeholder="Enter password: 'user'" autocomplete="off">
+        <div class="login-container">
+            <div class="avatar">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-4.41 0-8 1.79-8 4v2h16v-2c0-2.21-3.59-4-8-4z"/>
+                </svg>
             </div>
-            <div class="user-note">
-                ⚠️ Notice: View-only access granted. Modifications restricted.
-                Default access code: "user"
-            </div>
-            <button class="submit-btn" onclick="checkUserAccess()">Initialize Access</button>
-        </div>
-
-        <div id="adminAccess" class="access-form">
-            <div class="input-group">
-                <label>Administrative Override Protocol</label>
-                <input type="password" id="adminPassword" placeholder="Enter admin credentials" autocomplete="off">
-            </div>
-            <div class="warning">
-                ⚠️ Warning: Unauthorized access attempts are monitored and logged
-            </div>
-            <button class="submit-btn" onclick="checkAdminAccess()">Execute Override</button>
-        </div>
-
-        <div class="system-info" id="systemInfo">
-            <!-- Dynamic system info will be inserted here -->
+            <div class="username">User</div>
+            <input type="password" class="password-input" placeholder="Enter Password" autofocus>
+            <div class="hint">Password hint: user</div>
         </div>
     </div>
 
+    <div class="power-options">
+        <div class="power-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+            </svg>
+        </div>
+        <div class="power-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M13 3h-2v2h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="keyboard-hint">
+        <span class="key">Enter</span>
+        <span>to unlock</span>
+    </div>
+
     <script>
-        function getSystemInfo() {
-            const info = [];
-            const date = new Date();
+        function updateTime() {
+            const now = new Date();
+            const timeDiv = document.querySelector('.time');
+            const dateDiv = document.querySelector('.date');
             
-            info.push(`[${date.toISOString()}] Initializing security protocols...`);
-            info.push(`[SYSTEM] Architecture: ${navigator.platform}`);
-            info.push(`[SYSTEM] Client: ${navigator.userAgent.split(')')[0]})`);
-            info.push(`[NETWORK] Status: ${navigator.onLine ? 'Connected' : 'Offline'}`);
-            info.push(`[SECURITY] Monitoring active...`);
+            timeDiv.textContent = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
             
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const infoDiv = document.getElementById('systemInfo');
-                        infoDiv.innerHTML += `<div class="info-line">[LOCATION] Signal traced: ${position.coords.latitude}, ${position.coords.longitude}</div>`;
-                    },
-                    error => {
-                        const infoDiv = document.getElementById('systemInfo');
-                        infoDiv.innerHTML += '<div class="info-line">[LOCATION] Signal tracking denied</div>';
+            dateDiv.textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        let attempts = 0;
+        const input = document.querySelector('.password-input');
+        const container = document.querySelector('.login-container');
+        const hint = document.querySelector('.hint');
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (input.value === 'user') {
+                    container.style.transform = 'scale(0.95)';
+                    container.style.opacity = '0';
+                    container.style.transition = 'all 0.3s ease';
+                    document.querySelector('.time').style.opacity = '0';
+                    document.querySelector('.date').style.opacity = '0';
+                    document.querySelector('.keyboard-hint').style.opacity = '0';
+                    document.querySelector('.power-options').style.opacity = '0';
+                    setTimeout(() => {
+                        window.location.href = 'main.html';
+                    }, 300);
+                } else {
+                    attempts++;
+                    if (attempts === 1) {
+                        hint.style.display = 'block';
                     }
-                );
+                    container.classList.add('shake');
+                    setTimeout(() => {
+                        container.classList.remove('shake');
+                    }, 300);
+                    input.value = '';
+                }
             }
-            
-            return info.map(line => `<div class="info-line">${line}</div>`).join('');
-        }
-
-        function switchAccess(type) {
-            document.getElementById('userAccess').classList.remove('active');
-            document.getElementById('adminAccess').classList.remove('active');
-            document.getElementById(`${type}Access`).classList.add('active');
-            
-            const buttons = document.querySelectorAll('.level-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function checkUserAccess() {
-            const password = document.getElementById('userPassword').value;
-            if (password === 'user') {
-                window.location.href = 'main.html';
-            } else {
-                alert('Access Denied: Invalid user credentials detected.');
-            }
-        }
-
-        function checkAdminAccess() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === 'admin') {
-                window.location.href = 'main.html';
-            } else {
-                alert('Security Breach Detected: Administrative access denied.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('systemInfo').innerHTML = getSystemInfo();
-            switchAccess('user');
-        });
-
-        document.getElementById('userPassword').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkUserAccess();
-        });
-        
-        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAdminAccess();
         });
     </script>
 </body>
