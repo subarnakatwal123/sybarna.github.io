@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linux Lock Screen</title>
     <style>
+        /* Existing CSS styles */
         * {
             margin: 0;
             padding: 0;
@@ -40,12 +41,14 @@
             opacity: 0.3;
         }
 
+        /* New CSS styles */
         .datetime {
             position: absolute;
             top: 40px;
             text-align: center;
             font-size: 2rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .date {
@@ -63,7 +66,8 @@
             width: 90%;
             max-width: 400px;
             margin: auto;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .profile-icon {
@@ -76,6 +80,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            animation: bounceIn 0.5s ease-in-out;
         }
 
         .profile-icon svg {
@@ -110,6 +115,7 @@
             color: rgba(255,255,255,0.6);
             margin-top: 0.5rem;
             transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .error {
@@ -135,6 +141,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         .power-button:hover {
@@ -154,11 +161,24 @@
             75% { transform: translateX(10px); }
         }
 
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
         .shake {
             animation: shake 0.4s ease-in-out;
         }
 
         @media (max-width: 600px) {
+            /* Existing media query styles */
             .datetime {
                 font-size: 1.5rem;
             }
@@ -248,9 +268,8 @@
                     loginContainer.style.transform = 'scale(0.95)';
                     loginContainer.style.opacity = '0';
                     setTimeout(() => {
-    window.location.href = 'main.html'; // Redirect to main.html
-}, 500);
-
+                        window.location.href = 'main.html'; // Redirect to main.html
+                    }, 500);
                 } else {
                     attempts++;
                     errorMessage.style.opacity = '1';
@@ -281,46 +300,6 @@
         // Focus password input when page loads
         window.addEventListener('load', () => {
             passwordInput.focus();
-        });
-           // Update time and date
-        function updateDateTime() {
-            // Code remains the same
-        }
-
-        // Password handling
-        const passwordInput = document.getElementById('password');
-        const loginContainer = document.querySelector('.login-container');
-        const errorMessage = document.getElementById('error-message');
-        const hintMessage = document.getElementById('hint-message');
-        const correctPassword = "user";
-        let attempts = 0;
-
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                if (passwordInput.value === correctPassword) {
-                    errorMessage.style.opacity = '0';
-                    hintMessage.textContent = "Welcome back! 🎉";
-                    hintMessage.style.color = '#90EE90';
-                    loginContainer.style.transform = 'scale(0.95)';
-                    loginContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        window.location.href = 'main.html'; // Redirect to main.html
-                    }, 500);
-                } else {
-                    // Rest of the code remains the same
-                }
-            }
-        });
-
-        // Power button handler
-        const powerButton = document.querySelector('.power-button');
-        powerButton.addEventListener('click', () => {
-            if (confirm('Are you sure you want to power off?')) {
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    window.history.back();
-                }, 1000);
-            }
         });
     </script>
 </body>
