@@ -897,22 +897,7 @@
     </style>
 </head>
 <body>
-    <!-- Initial Loading Sequence -->
-    <div class="initial-loader">
-        <div class="scan-line"></div>
-        <div class="system-scan">
-            <div class="scan-text">Initializing security protocols...</div>
-            <div class="scan-text">Scanning system information...</div>
-            <div class="scan-text" id="deviceInfo"></div>
-            <div class="scan-text" id="browserInfo"></div>
-            <div class="scan-text" id="screenInfo"></div>
-            <div class="scan-text" id="locationInfo"></div>
-            <div class="progress">
-                <div class="progress-bar"></div>
-            </div>
-            <div class="scan-text">System access granted <span class="blink">_</span></div>
-        </div>
-    </div>
+    
 
     <!-- New Terminal-style Navigation -->
     <nav class="terminal-nav">
@@ -936,22 +921,7 @@
     <!-- Rest of the content remains the same -->
 
     <script>
-        // System Information Collection
-        function getSystemInfo() {
-            const info = {
-                device: {
-                    screen: `Resolution: ${window.screen.width}x${window.screen.height}`,
-                    colorDepth: `Color Depth: ${window.screen.colorDepth}-bit`,
-                    userAgent: navigator.userAgent
-                },
-                browser: {
-                    name: navigator.appName,
-                    language: navigator.language,
-                    platform: navigator.platform
-                }
-            };
-            return info;
-        }
+       
 
         // Loading Sequence
         async function initializeLoadingSequence() {
