@@ -3,165 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pop!_OS Lock Screen</title>
+    <title>Linux Lock Screen</title>
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px rgba(94, 92, 230, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(94, 92, 230, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(94, 92, 230, 0.5); }
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Fira Sans', system-ui, -apple-system, sans-serif;
+            font-family: 'Ubuntu', sans-serif;
         }
 
         body {
-            background-color: #0C0C0C;
-            height: 100vh;
-            width: 100vw;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            color: #ffffff;
-            overflow: hidden;
+            color: #fff;
             position: relative;
+            overflow: hidden;
         }
 
-        .background {
-            position: fixed;
+        .background-pattern {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1B1B2B, #0C0C0C);
-            opacity: 0.95;
-            animation: fadeIn 1s ease-out;
+            background-image: linear-gradient(30deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
+                            linear-gradient(150deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
+                            linear-gradient(30deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
+                            linear-gradient(150deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
+                            linear-gradient(60deg, #ffffff08 25%, transparent 25.5%, transparent 75%, #ffffff08 75%, #ffffff08),
+                            linear-gradient(60deg, #ffffff08 25%, transparent 25.5%, transparent 75%, #ffffff08 75%, #ffffff08);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+            opacity: 0.3;
         }
 
-        .gradient-overlay {
+        .datetime {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.8));
-            z-index: 1;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
+            top: 40px;
             text-align: center;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .time {
-            font-size: 96px;
-            font-weight: 300;
-            margin-bottom: 10px;
-            color: #F2F2F2;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .date {
-            font-size: 24px;
-            color: #A0A0A0;
-            margin-bottom: 60px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
         }
 
         .login-container {
-            background: rgba(30, 30, 46, 0.6);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 20px;
-            width: 400px;
-            border: 1px solid rgba(94, 92, 230, 0.1);
-        }
-
-        .avatar {
-            width: 90px;
-            height: 90px;
-            background: #5E5CE6;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
             transition: transform 0.3s ease;
         }
 
-        .avatar:hover {
-            transform: scale(1.05);
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            background: #4a4a4a;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        .avatar svg {
-            width: 50px;
-            height: 50px;
-            fill: white;
+        .profile-icon svg {
+            width: 60%;
+            height: 60%;
+            fill: #64ffda;
         }
 
-        .username {
-            font-size: 24px;
-            color: #F2F2F2;
-            margin-bottom: 25px;
+        .input-group {
+            margin: 1rem 0;
         }
 
-        .password-input {
+        input {
             width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(94, 92, 230, 0.3);
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
+            padding: 0.8rem;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            margin-bottom: 15px;
         }
 
-        .password-input:focus {
+        input:focus {
             outline: none;
-            border-color: #5E5CE6;
-            animation: glow 2s infinite;
-            background: rgba(255, 255, 255, 0.08);
+            border-color: #64ffda;
+            box-shadow: 0 0 0 2px rgba(100,255,218,0.2);
         }
 
         .hint {
-            color: #FF5D5D;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        .keyboard-hint {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
+        .error {
+            color: #ff9999;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .power-button {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            border: none;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            z-index: 2;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .key {
-            background: rgba(94, 92, 230, 0.2);
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(94, 92, 230, 0.3);
+        .power-button:hover {
+            background: linear-gradient(135deg, #3d3d3d, #2a2a2a);
+            transform: scale(1.1);
+        }
+
+        .power-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #64ffda;
         }
 
         @keyframes shake {
@@ -171,135 +155,138 @@
         }
 
         .shake {
-            animation: shake 0.3s ease-in-out;
+            animation: shake 0.4s ease-in-out;
         }
 
-        /* Power options */
-        .power-options {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 20px;
-            z-index: 2;
-        }
-
-        .power-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(30, 30, 46, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(94, 92, 230, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .power-btn:hover {
-            background: rgba(94, 92, 230, 0.2);
-            transform: scale(1.1);
-        }
-
-        .power-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: #F2F2F2;
+        @media (max-width: 600px) {
+            .datetime {
+                font-size: 1.5rem;
+            }
+            
+            .date {
+                font-size: 1rem;
+            }
+            
+            .login-container {
+                padding: 1.5rem;
+            }
+            
+            .profile-icon {
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="gradient-overlay"></div>
-
-    <div class="container">
-        <div class="time"></div>
-        <div class="date"></div>
-
-        <div class="login-container">
-            <div class="avatar">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-4.41 0-8 1.79-8 4v2h16v-2c0-2.21-3.59-4-8-4z"/>
-                </svg>
-            </div>
-            <div class="username">User</div>
-            <input type="password" class="password-input" placeholder="Enter Password" autofocus>
-            <div class="hint">Password hint: user</div>
-        </div>
+    <div class="background-pattern"></div>
+    
+    <div class="datetime">
+        <div class="time">00:00</div>
+        <div class="date">Monday, January 1</div>
     </div>
 
-    <div class="power-options">
-        <div class="power-btn">
+    <div class="login-container">
+        <div class="profile-icon">
             <svg viewBox="0 0 24 24">
-                <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
         </div>
-        <div class="power-btn">
-            <svg viewBox="0 0 24 24">
-                <path d="M13 3h-2v2h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
-            </svg>
+        <div class="input-group">
+            <input type="text" placeholder="Username" value="user" readonly>
+        </div>
+        <div class="input-group">
+            <input type="password" placeholder="Password" id="password">
+            <div class="hint" id="hint-message">Welcome! Enter your password to unlock</div>
+            <div class="error" id="error-message">💡 Password hint: It's the same as your username!</div>
         </div>
     </div>
 
-    <div class="keyboard-hint">
-        <span class="key">Enter</span>
-        <span>to unlock</span>
-    </div>
+    <button class="power-button">
+        <svg viewBox="0 0 24 24">
+            <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+        </svg>
+    </button>
 
     <script>
-        function updateTime() {
+        // Update time and date
+        function updateDateTime() {
             const now = new Date();
-            const timeDiv = document.querySelector('.time');
-            const dateDiv = document.querySelector('.date');
+            const timeElement = document.querySelector('.time');
+            const dateElement = document.querySelector('.date');
             
-            timeDiv.textContent = now.toLocaleTimeString('en-US', {
-                hour: '2-digit',
+            timeElement.textContent = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
                 minute: '2-digit',
-                hour12: false
+                hour12: false 
             });
             
-            dateDiv.textContent = now.toLocaleDateString('en-US', {
+            dateElement.textContent = now.toLocaleDateString('en-US', { 
                 weekday: 'long',
                 month: 'long',
                 day: 'numeric'
             });
         }
 
-        updateTime();
-        setInterval(updateTime, 1000);
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
 
+        // Password handling
+        const passwordInput = document.getElementById('password');
+        const loginContainer = document.querySelector('.login-container');
+        const errorMessage = document.getElementById('error-message');
+        const hintMessage = document.getElementById('hint-message');
+        const correctPassword = "user";
         let attempts = 0;
-        const input = document.querySelector('.password-input');
-        const container = document.querySelector('.login-container');
-        const hint = document.querySelector('.hint');
 
-        input.addEventListener('keypress', (e) => {
+        passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                if (input.value === 'user') {
-                    container.style.transform = 'scale(0.95)';
-                    container.style.opacity = '0';
-                    container.style.transition = 'all 0.3s ease';
-                    document.querySelector('.time').style.opacity = '0';
-                    document.querySelector('.date').style.opacity = '0';
-                    document.querySelector('.keyboard-hint').style.opacity = '0';
-                    document.querySelector('.power-options').style.opacity = '0';
+                if (passwordInput.value === correctPassword) {
+                    errorMessage.style.opacity = '0';
+                    hintMessage.textContent = "Welcome back! 🎉";
+                    hintMessage.style.color = '#90EE90';
+                    loginContainer.style.transform = 'scale(0.95)';
+                    loginContainer.style.opacity = '0';
                     setTimeout(() => {
-                        window.location.href = 'main.html';
-                    }, 300);
+                        alert('Login successful! Welcome back!');
+                        passwordInput.value = '';
+                        loginContainer.style.transform = 'scale(1)';
+                        loginContainer.style.opacity = '1';
+                        hintMessage.textContent = "Welcome! Enter your password to unlock";
+                        hintMessage.style.color = 'rgba(255,255,255,0.6)';
+                        attempts = 0;
+                        window.history.back();
+                    }, 500);
                 } else {
                     attempts++;
-                    if (attempts === 1) {
-                        hint.style.display = 'block';
-                    }
-                    container.classList.add('shake');
+                    errorMessage.style.opacity = '1';
+                    loginContainer.classList.add('shake');
                     setTimeout(() => {
-                        container.classList.remove('shake');
-                    }, 300);
-                    input.value = '';
+                        loginContainer.classList.remove('shake');
+                    }, 400);
+                    
+                    if (attempts >= 3) {
+                        hintMessage.textContent = "Need help? The password is the same as your username! 😉";
+                        hintMessage.style.color = '#FFB6C1';
+                    }
                 }
             }
+        });
+
+        // Power button handler
+        const powerButton = document.querySelector('.power-button');
+        powerButton.addEventListener('click', () => {
+            if (confirm('Are you sure you want to power off?')) {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.history.back();
+                }, 1000);
+            }
+        });
+
+        // Focus password input when page loads
+        window.addEventListener('load', () => {
+            passwordInput.focus();
         });
     </script>
 </body>
