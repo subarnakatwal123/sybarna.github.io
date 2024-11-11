@@ -248,15 +248,9 @@
                     loginContainer.style.transform = 'scale(0.95)';
                     loginContainer.style.opacity = '0';
                     setTimeout(() => {
-                        alert('Login successful! Welcome back!');
-                        passwordInput.value = '';
-                        loginContainer.style.transform = 'scale(1)';
-                        loginContainer.style.opacity = '1';
-                        hintMessage.textContent = "Welcome! Enter your password to unlock";
-                        hintMessage.style.color = 'rgba(255,255,255,0.6)';
-                        attempts = 0;
-                        window.history.back();
-                    }, 500);
+    window.location.href = 'main.html'; // Redirect to main.html
+}, 500);
+
                 } else {
                     attempts++;
                     errorMessage.style.opacity = '1';
@@ -287,6 +281,46 @@
         // Focus password input when page loads
         window.addEventListener('load', () => {
             passwordInput.focus();
+        });
+           // Update time and date
+        function updateDateTime() {
+            // Code remains the same
+        }
+
+        // Password handling
+        const passwordInput = document.getElementById('password');
+        const loginContainer = document.querySelector('.login-container');
+        const errorMessage = document.getElementById('error-message');
+        const hintMessage = document.getElementById('hint-message');
+        const correctPassword = "user";
+        let attempts = 0;
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (passwordInput.value === correctPassword) {
+                    errorMessage.style.opacity = '0';
+                    hintMessage.textContent = "Welcome back! 🎉";
+                    hintMessage.style.color = '#90EE90';
+                    loginContainer.style.transform = 'scale(0.95)';
+                    loginContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        window.location.href = 'main.html'; // Redirect to main.html
+                    }, 500);
+                } else {
+                    // Rest of the code remains the same
+                }
+            }
+        });
+
+        // Power button handler
+        const powerButton = document.querySelector('.power-button');
+        powerButton.addEventListener('click', () => {
+            if (confirm('Are you sure you want to power off?')) {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.history.back();
+                }, 1000);
+            }
         });
     </script>
 </body>
