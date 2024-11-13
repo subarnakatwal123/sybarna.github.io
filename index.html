@@ -54,11 +54,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .unlocked {
             transform: translateY(-100%);
+            opacity: 0;
         }
 
         .datetime {
@@ -138,18 +139,19 @@
             margin-top: 1rem;
         }
 
-        .unlock-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
-        .show-message {
-            opacity: 1;
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
 
         @media (max-width: 600px) {
@@ -183,11 +185,9 @@
                 </svg>
             </div>
             <input type="password" placeholder="Enter password to unlock" id="password">
-            <div class="hint">user password: "unlock"</div>
+            <div class="hint">Password: "unlock"</div>
         </div>
     </div>
-
-    <div class="unlock-message">Welcome Back! 🎉</div>
 
     <script>
         // Update time and date
@@ -215,21 +215,22 @@
         // Password handling
         const passwordInput = document.getElementById('password');
         const lockScreen = document.querySelector('.lock-screen');
-        const unlockMessage = document.querySelector('.unlock-message');
         const correctPassword = "unlock";
 
         passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 if (passwordInput.value === correctPassword) {
-                    unlockMessage.classList.add('show-message');
+                    // Add unlocked class for slide-up animation
                     lockScreen.classList.add('unlocked');
                     
-                    // Reset after animation
+                    // Fade out the background
+                    document.body.style.transition = 'opacity 0.8s ease';
+                    document.body.style.opacity = '0';
+                    
+                    // Redirect after animations complete
                     setTimeout(() => {
-                        passwordInput.value = '';
-                        unlockMessage.classList.remove('show-message');
-                        lockScreen.classList.remove('unlocked');
-                    }, 3000);
+                        window.location.href = 'main.html';
+                    }, 800);
                 } else {
                     passwordInput.classList.add('shake');
                     setTimeout(() => {
