@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linux Lock Screen</title>
+    <title>Cool Lock Screen</title>
     <style>
-        /* Existing CSS styles */
         * {
             margin: 0;
             padding: 0;
@@ -25,28 +24,48 @@
         }
 
         .background-pattern {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(30deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
-                            linear-gradient(150deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
-                            linear-gradient(30deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
-                            linear-gradient(150deg, #ffffff03 12%, transparent 12.5%, transparent 87%, #ffffff03 87.5%, #ffffff03),
-                            linear-gradient(60deg, #ffffff08 25%, transparent 25.5%, transparent 75%, #ffffff08 75%, #ffffff08),
-                            linear-gradient(60deg, #ffffff08 25%, transparent 25.5%, transparent 75%, #ffffff08 75%, #ffffff08);
-            background-size: 80px 140px;
-            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-            opacity: 0.3;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #ffffff03 10%, transparent 10.5%),
+                radial-gradient(circle at 50% 50%, #ffffff03 10%, transparent 10.5%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            animation: moveBackground 60s linear infinite;
         }
 
-        /* New CSS styles */
+        @keyframes moveBackground {
+            0% { background-position: 0 0, 15px 15px; }
+            100% { background-position: 300px 300px, 315px 315px; }
+        }
+
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .unlocked {
+            transform: translateY(-100%);
+        }
+
         .datetime {
             position: absolute;
             top: 40px;
             text-align: center;
-            font-size: 2rem;
+            font-size: 3.5rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -58,16 +77,15 @@
         }
 
         .login-container {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            background: rgba(45, 45, 45, 0.5);
             backdrop-filter: blur(10px);
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             width: 90%;
             max-width: 400px;
-            margin: auto;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            animation: fadeIn 0.5s ease-in-out;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .profile-icon {
@@ -80,7 +98,13 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            animation: bounceIn 0.5s ease-in-out;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .profile-icon svg {
@@ -89,98 +113,48 @@
             fill: #64ffda;
         }
 
-        .input-group {
-            margin: 1rem 0;
-        }
-
         input {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
             transition: all 0.3s ease;
+            margin-bottom: 1rem;
         }
 
         input:focus {
             outline: none;
             border-color: #64ffda;
-            box-shadow: 0 0 0 2px rgba(100,255,218,0.2);
+            box-shadow: 0 0 20px rgba(100,255,218,0.3);
         }
 
         .hint {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.6);
-            margin-top: 0.5rem;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease-in-out;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 1rem;
         }
 
-        .error {
-            color: #ff9999;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
+        .unlock-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
         }
 
-        .power-button {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .power-button:hover {
-            background: linear-gradient(135deg, #3d3d3d, #2a2a2a);
-            transform: scale(1.1);
-        }
-
-        .power-button svg {
-            width: 24px;
-            height: 24px;
-            fill: #64ffda;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        .shake {
-            animation: shake 0.4s ease-in-out;
+        .show-message {
+            opacity: 1;
         }
 
         @media (max-width: 600px) {
-            /* Existing media query styles */
             .datetime {
-                font-size: 1.5rem;
+                font-size: 2.5rem;
             }
             
             .date {
@@ -190,43 +164,30 @@
             .login-container {
                 padding: 1.5rem;
             }
-            
-            .profile-icon {
-                width: 80px;
-                height: 80px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="background-pattern"></div>
     
-    <div class="datetime">
-        <div class="time">00:00</div>
-        <div class="date">Monday, January 1</div>
-    </div>
+    <div class="lock-screen">
+        <div class="datetime">
+            <div class="time">00:00</div>
+            <div class="date">Monday, January 1</div>
+        </div>
 
-    <div class="login-container">
-        <div class="profile-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-        </div>
-        <div class="input-group">
-            <input type="text" placeholder="Username" value="user" readonly>
-        </div>
-        <div class="input-group">
-            <input type="password" placeholder="Password" id="password">
-            <div class="hint" id="hint-message">Welcome! Enter your password to unlock</div>
-            <div class="error" id="error-message">💡 Password hint: It's the same as your username!</div>
+        <div class="login-container">
+            <div class="profile-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <input type="password" placeholder="Enter password to unlock" id="password">
+            <div class="hint">user password: "unlock"</div>
         </div>
     </div>
 
-    <button class="power-button">
-        <svg viewBox="0 0 24 24">
-            <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
-        </svg>
-    </button>
+    <div class="unlock-message">Welcome Back! 🎉</div>
 
     <script>
         // Update time and date
@@ -253,47 +214,28 @@
 
         // Password handling
         const passwordInput = document.getElementById('password');
-        const loginContainer = document.querySelector('.login-container');
-        const errorMessage = document.getElementById('error-message');
-        const hintMessage = document.getElementById('hint-message');
-        const correctPassword = "user";
-        let attempts = 0;
+        const lockScreen = document.querySelector('.lock-screen');
+        const unlockMessage = document.querySelector('.unlock-message');
+        const correctPassword = "unlock";
 
         passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 if (passwordInput.value === correctPassword) {
-                    errorMessage.style.opacity = '0';
-                    hintMessage.textContent = "Welcome back! 🎉";
-                    hintMessage.style.color = '#90EE90';
-                    loginContainer.style.transform = 'scale(0.95)';
-                    loginContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        window.location.href = 'main.html'; // Redirect to main.html
-                    }, 500);
-                } else {
-                    attempts++;
-                    errorMessage.style.opacity = '1';
-                    loginContainer.classList.add('shake');
-                    setTimeout(() => {
-                        loginContainer.classList.remove('shake');
-                    }, 400);
+                    unlockMessage.classList.add('show-message');
+                    lockScreen.classList.add('unlocked');
                     
-                    if (attempts >= 3) {
-                        hintMessage.textContent = "Need help? The password is the same as your username! 😉";
-                        hintMessage.style.color = '#FFB6C1';
-                    }
+                    // Reset after animation
+                    setTimeout(() => {
+                        passwordInput.value = '';
+                        unlockMessage.classList.remove('show-message');
+                        lockScreen.classList.remove('unlocked');
+                    }, 3000);
+                } else {
+                    passwordInput.classList.add('shake');
+                    setTimeout(() => {
+                        passwordInput.classList.remove('shake');
+                    }, 400);
                 }
-            }
-        });
-
-        // Power button handler
-        const powerButton = document.querySelector('.power-button');
-        powerButton.addEventListener('click', () => {
-            if (confirm('Are you sure you want to power off?')) {
-                document.body.style.opacity = '0';
-                setTimeout(() => {
-                    window.history.back();
-                }, 1000);
             }
         });
 
