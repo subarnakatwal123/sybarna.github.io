@@ -6,7 +6,7 @@
     <meta name="description" content="Explore the inspiring journey of Subarna Katwal, an ambitious cybersecurity enthusiast aspiring to be the greatest ethical hacker of all time.">
     <meta name="keywords" content="Subarna Katwal, SubarnaKatwal Portfolio, Cybersecurity Nepal, Ethical Hacker Nepal, BCA Student">
     <meta name="author" content="Subarna Katwal">
-    <title>About Subarna Katwal</title>
+    <title>Password Protected | Subarna Katwal</title>
     <style>
         :root {
             --bg-primary: #faf9f8;
@@ -27,28 +27,52 @@
             font-family: 'Arial', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
-        header {
-            text-align: center;
-            background-color: var(--bg-card);
-            padding: 20px 15px;
-            border-bottom: 2px solid var(--border);
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
+        .password-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
 
-        header p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
+        .password-container input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 300px;
+        }
+
+        .password-container button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .password-container button:hover {
+            background-color: #444;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
         }
 
         .about-container {
+            display: none;
             max-width: 800px;
             margin: 40px auto;
             padding: 20px;
@@ -70,11 +94,6 @@
             color: var(--text-secondary);
         }
 
-        .about-container .highlight {
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
         footer {
             text-align: center;
             padding: 15px;
@@ -90,40 +109,55 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Subarna Katwal</h1>
-        <p>"The Cyber Guy from Nepal"</p>
-    </header>
-
-    <div class="about-container">
-        <h2>Who Am I?</h2>
-        <p>
-            <span class="highlight">Subarna Katwal is my name.</span> If you’re looking for me, just search <span class="highlight">“Subarna Katwal”</span> or <span class="highlight">“SubarnaKatwal Portfolio.”</span> You’ll find me—always striving, always building.
-        </p>
-
-        <h2>My Journey</h2>
-        <p>
-            I began my schooling at <span class="highlight">People's School</span> (Nursery to UKG), moved on to <span class="highlight">Green Field National School</span> (Grades 1-5), 
-            then <span class="highlight">Learning Realm International School</span> (Grade 6), followed by <span class="highlight">Deneb Academy</span> (Grades 7-10), and finally graduated high school from <span class="highlight">Pentagon International College</span>.
-        </p>
-        <p>
-            Currently, I am pursuing a <span class="highlight">Bachelor in Computer Applications (BCA)</span> at <span class="highlight">Madan Bhandari Memorial College</span>, Nepal. My passion for technology and cybersecurity drives me to explore, innovate, and master the digital frontier.
-        </p>
-
-        <h2>What Drives Me?</h2>
-        <p>
-            My life? <span class="highlight">Anything but boring.</span> I’m on a constant quest for excitement, for creating something new, for breaking and rebuilding ideas. 
-            I have countless goals and endless aspirations, but time is never enough to chase them all. Among them, my greatest ambition is to become <span class="highlight">the greatest ethical hacker of all time.</span>
-        </p>
-
-        <h2>My Identity</h2>
-        <p>
-            A self-proclaimed <span class="highlight">Cyber Guy</span> from Nepal, I believe life is about pursuing what excites you. Whether it's diving into offensive security, cloud technologies, or creating innovative systems, I’m always ready for the challenge.
-        </p>
+    <!-- Password Input Section -->
+    <div class="password-container" id="password-screen">
+        <h1>Enter Password to Access</h1>
+        <input type="password" id="password" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+        <p class="error" id="error-message"></p>
     </div>
 
-    <footer>
-        <p>Copyright © 2024 Subarna Katwal | All Rights Reserved.</p>
-    </footer>
+    <!-- About Section (Hidden by Default) -->
+    <div class="about-container" id="about-page">
+        <header>
+            <h1>Subarna Katwal</h1>
+            <p>"The Cyber Guy from Nepal"</p>
+        </header>
+
+        <div>
+            <h2>Who Am I?</h2>
+            <p>Subarna Katwal is my name. Searching for <span class="highlight">Subarna Katwal</span> or <span class="highlight">SubarnaKatwal Portfolio</span> will always lead you here—where my journey unfolds.</p>
+
+            <h2>My Journey</h2>
+            <p>
+                From humble beginnings at <strong>People's School</strong> to completing high school at <strong>Pentagon International College</strong>, 
+                I’ve been on an academic journey fueled by curiosity and ambition. Now, I’m pursuing my <strong>BCA</strong> at <strong>Madan Bhandari Memorial College</strong>.
+            </p>
+
+            <h2>My Passion</h2>
+            <p>Life for me is about doing exciting stuff. My ultimate dream is to become the <strong>greatest ethical hacker of all time</strong>, and I’m ready to make it happen!</p>
+        </div>
+
+        <footer>
+            <p>Copyright © 2024 Subarna Katwal. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const inputPassword = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const aboutPage = document.getElementById('about-page');
+            const passwordScreen = document.getElementById('password-screen');
+
+            // Password Validation
+            if (inputPassword === "$") {
+                passwordScreen.style.display = 'none'; // Hide password input
+                aboutPage.style.display = 'block'; // Show about page
+            } else {
+                errorMessage.textContent = "Incorrect password. Please try again.";
+            }
+        }
+    </script>
 </body>
 </html>
