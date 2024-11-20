@@ -3,253 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subarna Katwal - The Digital Guardian | Cybersecurity Warrior</title>
-    
-    <!-- Enhanced SEO Meta Tags -->
-    <meta name="description" content="Enter the digital realm of Subarna Katwal (Subwrn), Nepal's elite cybersecurity specialist. Discover the untold stories of cyber warfare and digital protection.">
-    <meta name="keywords" content="Subarna Katwal, Subwrn, Nepal Cybersecurity, Cyber News, Tech Subarna Katwal, Sybarna, Cybersecurity Expert Nepal, Digital Guardian">
+    <meta name="description" content="Discover the dramatic journey of Subarna Katwal, a passionate cybersecurity enthusiast and aspiring ethical hacker from Nepal.">
+    <meta name="keywords" content="Subarna Katwal, SubarnaKatwal Portfolio, Ethical Hacker Nepal, Cybersecurity Enthusiast, BCA Nepal">
     <meta name="author" content="Subarna Katwal">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Subarna Katwal - The Digital Guardian">
-    <meta property="og:description" content="Journey through the digital battlegrounds with Nepal's leading cybersecurity warrior">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://subarnakatwal.com.np">
-    
-    <style>
-        :root {
-            --neon-text-color: #f40;
-            --neon-border-color: #08f;
-            --matrix-green: #00ff00;
-            --cyber-blue: #007bff;
-        }
-        
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 var(--neon-text-color), -2px 0 var(--cyber-blue); }
-            25% { text-shadow: -2px 0 var(--neon-text-color), 2px 0 var(--cyber-blue); }
-            50% { text-shadow: 2px 0 var(--neon-text-color), -2px 0 var(--cyber-blue); }
-            100% { text-shadow: -2px 0 var(--neon-text-color), 2px 0 var(--cyber-blue); }
-        }
-        
-        @keyframes matrix-rain {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 100%; }
-        }
-        
-        body {
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            background-color: #000;
-            color: #0f0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        #login-screen {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-                        url('/api/placeholder/1920/1080') center/cover;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        #login-screen::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(0deg, transparent 95%, var(--neon-border-color) 100%);
-            animation: matrix-rain 20s linear infinite;
-            opacity: 0.3;
-        }
-        
-        .login-box {
-            background: rgba(0,30,60,0.9);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px var(--neon-border-color);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .story-card {
-            background: rgba(0,30,60,0.8);
-            margin: 2rem 0;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid var(--neon-text-color);
-            transition: transform 0.3s;
-        }
-        
-        .story-card:hover {
-            transform: translateX(10px);
-        }
-        
-        .story-image {
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin: 1rem 0;
-            border: 2px solid var(--neon-border-color);
-        }
-        
-        .glitch-text {
-            animation: glitch 3s infinite;
-            font-size: 2.5rem;
-            margin: 1rem 0;
-        }
-        
-        input {
-            background: rgba(0,0,0,0.7);
-            border: 1px solid var(--neon-border-color);
-            color: var(--matrix-green);
-            padding: 1rem;
-            margin: 1rem 0;
-            width: 100%;
-            font-family: inherit;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 15px var(--neon-border-color);
-        }
-        
-        button {
-            background: transparent;
-            color: var(--neon-text-color);
-            border: 2px solid var(--neon-text-color);
-            padding: 0.8rem 2.5rem;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s;
-            border-radius: 5px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-        
-        button:hover {
-            background: var(--neon-text-color);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-text-color);
-        }
-        
-        .device-info {
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
-            color: #888;
-            text-align: left;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1rem;
-        }
-        
-        #main-content {
-            display: none;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            padding: 3rem 1rem;
-            border-bottom: 2px solid var(--neon-border-color);
-            margin-bottom: 3rem;
-        }
-        
-        .section-title {
-            color: var(--neon-text-color);
-            font-size: 2rem;
-            margin: 2rem 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        
-        .mission-statement {
-            font-size: 1.2rem;
-            color: var(--cyber-blue);
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1rem;
-            border: 1px solid var(--cyber-blue);
-            border-radius: 10px;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .social-links a {
-            color: var(--neon-text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--neon-text-color);
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        .social-links a:hover {
-            background: var(--neon-text-color);
-            color: #000;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 2px solid var(--neon-border-color);
-            margin-top: 3rem;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: var(--neon-border-color);
-        }
-        
-        .timeline-entry {
-            margin: 2rem 0;
-            position: relative;
-            width: 50%;
-            padding: 1rem;
-        }
-        
-        .timeline-entry:nth-child(odd) {
-            left: 0;
-            padding-right: 3rem;
-        }
-        
-        .timeline-entry:nth-child(even) {
-            left: 50%;
-            padding-left: 3rem;
-        }
-    </style>
-
-
+    <title>About Subarna Katwal | Password Protected</title>
     <style>
         :root {
             --bg-primary: #faf9f8;
@@ -258,7 +15,6 @@
             --text-secondary: #4a4a4a;
             --accent: #2d2d2d;
             --border: #e1e1e1;
-            --tag-bg: #f0f0f0;
         }
 
         * {
@@ -272,141 +28,95 @@
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
         }
 
-        header {
-            background: var(--bg-card);
-            padding: 20px;
-            border-bottom: 2px solid var(--border);
-            text-align: center;
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
+        .password-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
 
-        header p {
-            color: var(--text-secondary);
+        .password-container input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 300px;
+        }
+
+        .password-container button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .password-container button:hover {
+            background-color: #444;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
         }
 
         .about-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-container h2 {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .about-container p {
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-        }
-
-        .about-container .keyword {
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
-        footer {
-            text-align: center;
-            margin: 20px 0;
-            color: var(--text-secondary);
+            display: none;
         }
     </style>
-    
 </head>
 <body>
-    <header>
-        <h1>Subarna Katwal</h1>
-        <p>The Cyber Guy from Nepal | Aspiring to be the Greatest Ethical Hacker</p>
-    </header>
-
-    <div class="about-container">
-        <h2>The Journey</h2>
-        <p>
-            I am <span class="keyword">Subarna Katwal</span>, and this is my story. A curious kid from Nepal who dreamed of creating a life filled with excitement, I embarked on a journey that took me from the classrooms of <span class="keyword">People's School</span> (Nursery to UKG) to <span class="keyword">Green Field National School</span> (Grades 1-5), 
-            <span class="keyword">Learning Realm International School</span> (Grade 6), <span class="keyword">Deneb Academy</span> (Grades 7-10), and finally <span class="keyword">Pentagon International College</span> for my higher secondary studies.
-        </p>
-
-        <p>
-            Currently, I am pursuing a <span class="keyword">Bachelor in Computer Applications (BCA)</span> at <span class="keyword">Madan Bhandari Memorial College</span>. 
-            But my passion doesn’t stop at academics—I live to create, break, and reinvent digital systems, always in pursuit of the thrill of the new and the unexplored.
-        </p>
-
-        <h2>Who Am I?</h2>
-        <p>
-            A self-proclaimed <span class="keyword">"Cyber Guy"</span> from Nepal, I am on a mission to become the greatest ethical hacker of all time. 
-            With no fixed destination but countless ambitions, I navigate a life that’s anything but boring. Whether it’s diving into offensive security or mastering cloud systems, I believe in making every moment exciting.
-        </p>
-
-        <h2>My Vision</h2>
-        <p>
-            Life for me is about <span class="keyword">creating</span>. It’s about doing something that stands out, breaking the monotony, and pushing boundaries. 
-            Whether you're here to know about me or to collaborate, one thing is certain—this space is where passion and purpose collide.
-        </p>
+    <div class="password-container" id="password-screen">
+        <h1>Enter Password to Proceed</h1>
+        <input type="password" id="password" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+        <p class="error" id="error-message"></p>
     </div>
 
-    <footer>
-        <p>Copyright © 2024 Subarna Katwal. All Rights Reserved.</p>
-    </footer>
+    <div class="about-container" id="about-page">
+        <header>
+            <h1>Subarna Katwal</h1>
+            <p>The Cyber Guy from Nepal | Aspiring to be the Greatest Ethical Hacker</p>
+        </header>
 
-
+        <div class="about-content">
+            <h2>The Journey</h2>
+            <p>
+                I am <span class="keyword">Subarna Katwal</span>, and this is my story...
+                <!-- Include full about content here -->
+            </p>
+        </div>
+        <footer>
+            <p>Copyright © 2024 Subarna Katwal. All Rights Reserved.</p>
+        </footer>
+    </div>
 
     <script>
-        // Enhanced Device Information Collection
-        function getDeviceInfo() {
-            const info = [];
-            info.push(`[SYSTEM]: Browser Agent: ${navigator.userAgent}`);
-            info.push(`[DISPLAY]: Resolution: ${window.screen.width}x${window.screen.height}`);
-            info.push(`[LOCALE]: System Language: ${navigator.language}`);
-            info.push(`[PLATFORM]: Operating System: ${navigator.platform}`);
-            info.push(`[CONNECTION]: Online Status: ${navigator.onLine ? 'Connected' : 'Offline'}`);
-            
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        document.getElementById('deviceInfo').innerHTML += `<br>[LOCATION]: Coordinates: ${lat}, ${lon}`;
-                    },
-                    error => {
-                        document.getElementById('deviceInfo').innerHTML += '<br>[LOCATION]: Access Denied';
-                    }
-                );
-            }
-            
-            return info.join('<br>');
-        }
-
-        document.getElementById('deviceInfo').innerHTML = getDeviceInfo();
-
         function checkPassword() {
-            const password = document.getElementById('password').value;
-            if (password === 'admin') {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+            const inputPassword = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const aboutPage = document.getElementById('about-page');
+            const passwordScreen = document.getElementById('password-screen');
+
+            // Password Validation
+            if (inputPassword === "$") {
+                passwordScreen.style.display = 'none';
+                aboutPage.style.display = 'block';
             } else {
-                alert('Access Denied: Security Protocol Violated');
+                errorMessage.textContent = "Incorrect password. Please try again.";
             }
         }
-
-        document.getElementById('password').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
     </script>
 </body>
 </html>
