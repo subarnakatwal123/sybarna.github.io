@@ -248,83 +248,121 @@
             padding-left: 3rem;
         }
     </style>
+
+
+    <style>
+        :root {
+            --bg-primary: #faf9f8;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --accent: #2d2d2d;
+            --border: #e1e1e1;
+            --tag-bg: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--bg-card);
+            padding: 20px;
+            border-bottom: 2px solid var(--border);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+        }
+
+        .about-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-container h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .about-container p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .about-container .keyword {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        footer {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-secondary);
+        }
+    </style>
+    
 </head>
 <body>
-    <div id="login-screen">
-        <div class="login-box">
-            <h1 class="glitch-text">TERMINAL ACCESS</h1>
-            <p>Warning: Authorized Personnel Only</p>
-            <input type="password" id="password" placeholder="Enter Security Clearance Code" autocomplete="off">
-            <button onclick="checkPassword()">DECRYPT</button>
-            <div class="device-info" id="deviceInfo"></div>
-        </div>
+    <header>
+        <h1>Subarna Katwal</h1>
+        <p>The Cyber Guy from Nepal | Aspiring to be the Greatest Ethical Hacker</p>
+    </header>
+
+    <div class="about-container">
+        <h2>The Journey</h2>
+        <p>
+            I am <span class="keyword">Subarna Katwal</span>, and this is my story. A curious kid from Nepal who dreamed of creating a life filled with excitement, I embarked on a journey that took me from the classrooms of <span class="keyword">People's School</span> (Nursery to UKG) to <span class="keyword">Green Field National School</span> (Grades 1-5), 
+            <span class="keyword">Learning Realm International School</span> (Grade 6), <span class="keyword">Deneb Academy</span> (Grades 7-10), and finally <span class="keyword">Pentagon International College</span> for my higher secondary studies.
+        </p>
+
+        <p>
+            Currently, I am pursuing a <span class="keyword">Bachelor in Computer Applications (BCA)</span> at <span class="keyword">Madan Bhandari Memorial College</span>. 
+            But my passion doesn’t stop at academics—I live to create, break, and reinvent digital systems, always in pursuit of the thrill of the new and the unexplored.
+        </p>
+
+        <h2>Who Am I?</h2>
+        <p>
+            A self-proclaimed <span class="keyword">"Cyber Guy"</span> from Nepal, I am on a mission to become the greatest ethical hacker of all time. 
+            With no fixed destination but countless ambitions, I navigate a life that’s anything but boring. Whether it’s diving into offensive security or mastering cloud systems, I believe in making every moment exciting.
+        </p>
+
+        <h2>My Vision</h2>
+        <p>
+            Life for me is about <span class="keyword">creating</span>. It’s about doing something that stands out, breaking the monotony, and pushing boundaries. 
+            Whether you're here to know about me or to collaborate, one thing is certain—this space is where passion and purpose collide.
+        </p>
     </div>
 
-    <div id="main-content">
-        <header>
-            <h1 class="glitch-text">SUBARNA KATWAL</h1>
-            <p class="mission-statement">"In the digital realm, where bits and bytes dance in eternal conflict, I stand as the guardian between chaos and order."</p>
-        </header>
+    <footer>
+        <p>Copyright © 2024 Subarna Katwal. All Rights Reserved.</p>
+    </footer>
 
-        <section class="story-card">
-            <h2 class="section-title">The Digital Guardian Rises</h2>
-            <img src="/api/placeholder/800/400" alt="Cybersecurity Warrior" class="story-image">
-            <p>In the heart of Nepal's digital landscape, a warrior emerged from the shadows. Known by many names - Subwrn, Sybarna - but feared by cyber criminals as "The Digital Guardian." This is not just a story of someone who works in cybersecurity; this is the chronicle of a digital warrior who has dedicated his life to protecting the virtual frontiers of his homeland.</p>
-        </section>
 
-        <div class="timeline">
-            <div class="timeline-entry">
-                <h3>The Origin</h3>
-                <img src="/api/placeholder/600/300" alt="Early Days" class="story-image">
-                <p>It began in the quiet corners of Kathmandu's tech underground. While others saw computers as tools, I saw them as gateways to a dimension that needed protection. Every line of code was a weapon, every protocol a shield.</p>
-            </div>
-
-            <div class="timeline-entry">
-                <h3>The First Battle</h3>
-                <img src="/api/placeholder/600/300" alt="Cyber Battle" class="story-image">
-                <p>The first major cyber attack came without warning. As systems crashed around the country, I stood at the frontlines, a digital sword in hand. That day, I learned that in the cyber realm, we are all connected, all vulnerable, and all worth protecting.</p>
-            </div>
-
-            <div class="timeline-entry">
-                <h3>The Present Mission</h3>
-                <img src="/api/placeholder/600/300" alt="Current Mission" class="story-image">
-                <p>Today, the battles continue. Each day brings new threats, new challenges, and new opportunities to protect those who cannot protect themselves in this digital age. This is not just a job - it's a calling.</p>
-            </div>
-        </div>
-
-        <section id="expertise">
-            <h2 class="section-title">Arsenal of Digital Defense</h2>
-            <div class="story-card">
-                <img src="/api/placeholder/800/400" alt="Digital Arsenal" class="story-image">
-                <ul>
-                    <li>Advanced Penetration Testing</li>
-                    <li>Cyber Threat Intelligence</li>
-                    <li>Security Architecture Design</li>
-                    <li>Incident Response & Recovery</li>
-                    <li>Digital Forensics</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="cyber-news">
-            <h2 class="section-title">Latest Intelligence Reports</h2>
-            <div class="story-card">
-                <img src="/api/placeholder/800/400" alt="Cyber Intelligence" class="story-image">
-                <div id="news-feed">
-                    <p>Intel suggests increasing cyber activities in the region. Stay vigilant. Updates pending...</p>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="social-links">
-                <a href="#">Command Center (Twitter)</a>
-                <a href="#">Operations Base (LinkedIn)</a>
-                <a href="#">Code Repository (GitHub)</a>
-            </div>
-            <p>&copy; 2024 Subarna Katwal | The Digital Guardian</p>
-        </footer>
-    </div>
 
     <script>
         // Enhanced Device Information Collection
