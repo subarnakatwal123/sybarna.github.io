@@ -17,11 +17,12 @@
 
         body {
             height: 100vh;
-            background: black;
+            background: #000;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Courier New', monospace;
         }
 
         .glitch-container {
@@ -29,17 +30,32 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: black;
+            background: #000;
+        }
+
+        .text-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            z-index: 100;
+            animation: textGlitch 3s infinite;
+            text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
         }
 
         .static {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif') repeat;
+            background: url('/api/placeholder/1920/1080') repeat;
             background-size: cover;
-            opacity: 0.6;
+            opacity: 0.3;
             z-index: 1;
+            animation: staticNoise 0.5s steps(10) infinite;
         }
 
         .scanlines {
@@ -51,12 +67,12 @@
             background: repeating-linear-gradient(
                 to bottom,
                 rgba(255, 255, 255, 0.05) 0,
-                rgba(255, 255, 255, 0.05) 3px,
-                rgba(0, 0, 0, 0.1) 4px
+                rgba(255, 255, 255, 0.05) 1px,
+                rgba(0, 0, 0, 0.2) 2px
             );
-            mix-blend-mode: multiply;
-            opacity: 0.2;
-            animation: scanline-animation 1s linear infinite;
+            mix-blend-mode: overlay;
+            opacity: 0.5;
+            animation: scanline-animation 8s linear infinite;
         }
 
         .glitch-lines {
@@ -66,43 +82,114 @@
             animation: glitch-lines-animation 0.2s infinite linear;
             background: repeating-linear-gradient(
                 to bottom,
-                rgba(255, 255, 255, 0.02),
-                rgba(255, 255, 255, 0.02) 1px,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 1px,
                 transparent 1px,
                 transparent 2px
             );
+            z-index: 2;
+        }
+
+        .color-shift {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: hue;
+            animation: colorShift 4s infinite;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+            opacity: 0.3;
+            z-index: 3;
+        }
+
+        .vignette {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+            z-index: 4;
+        }
+
+        .loading-bar {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            z-index: 101;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: #fff;
+            animation: loading 5s linear forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
 
         @keyframes scanline-animation {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100%);
-            }
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
         }
 
         @keyframes glitch-lines-animation {
-            0% {
-                transform: translateY(-10%);
-            }
-            100% {
-                transform: translateY(10%);
-            }
+            0% { transform: translateY(-10%) scale(1.1); }
+            100% { transform: translateY(10%) scale(0.9); }
+        }
+
+        @keyframes staticNoise {
+            0% { transform: translate(10%, 10%); }
+            10% { transform: translate(-10%, -10%); }
+            20% { transform: translate(8%, -8%); }
+            30% { transform: translate(-8%, 8%); }
+            40% { transform: translate(6%, -6%); }
+            50% { transform: translate(-6%, 6%); }
+            60% { transform: translate(4%, -4%); }
+            70% { transform: translate(-4%, 4%); }
+            80% { transform: translate(2%, -2%); }
+            90% { transform: translate(-2%, 2%); }
+            100% { transform: translate(0%, 0%); }
+        }
+
+        @keyframes colorShift {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.2; }
+        }
+
+        @keyframes textGlitch {
+            0% { transform: translate(-50%, -50%) skew(0deg); }
+            20% { transform: translate(-50%, -50%) skew(10deg); }
+            21% { transform: translate(-51%, -50%) skew(-10deg); color: #0ff; }
+            22% { transform: translate(-49%, -50%) skew(0deg); color: #fff; }
+            40% { transform: translate(-50%, -50%) skew(0deg); }
+            60% { transform: translate(-50%, -50%) skew(-15deg); color: #f0f; }
+            61% { transform: translate(-50%, -50%) skew(0deg); color: #fff; }
+            80% { transform: translate(-50%, -50%) skew(0deg); }
+            100% { transform: translate(-50%, -50%) skew(0deg); }
         }
     </style>
 </head>
 <body>
     <div class="glitch-container">
+        <div class="text-content">Signal Failure</div>
         <div class="static"></div>
         <div class="scanlines"></div>
         <div class="glitch-lines"></div>
+        <div class="color-shift"></div>
+        <div class="vignette"></div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
     </div>
-
     <script>
-        // Auto-redirect after 5 seconds
         setTimeout(() => {
-            window.location.href = "main.html"; 
+            window.location.href = "main.html";
         }, 5000);
     </script>
 </body>
