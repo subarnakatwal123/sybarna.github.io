@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subarna Katwal - Cybersecurity & Python Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .card {
+            background: rgba(17, 17, 17, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-accent {
+            color: #a0a0a0;
+        }
+
+        .text-primary {
+            color: #ffffff;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cccccc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .hero-text {
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .typing-animation {
+            border-right: 3px solid #667eea;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                border-color: #667eea;
+            }
+
+            51%,
+            100% {
+                border-color: transparent;
+            }
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-6px, -6px);
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            color: #667eea;
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .hero-text {
+                font-size: 2.5rem;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation -->
+    <nav class="w-full bg-black bg-opacity-80 backdrop-blur-lg border-b border-gray-800">
+        <div class="container">
+            <div class="flex items-center justify-between h-16">
+                <div class="text-xl font-bold">
+                    <span class="text-white">S</span><span class="text-accent">K</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <div class="hamburger" onclick="toggleMobileMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="space-y-8 text-center">
+            <a href="#home" class="nav-link text-2xl" onclick="toggleMobileMenu()">Home</a>
+            <a href="#about" class="nav-link text-2xl" onclick="toggleMobileMenu()">About</a>
+            <a href="#skills" class="nav-link text-2xl" onclick="toggleMobileMenu()">Skills</a>
+            <a href="#projects" class="nav-link text-2xl" onclick="toggleMobileMenu()">Projects</a>
+            <a href="#contact" class="nav-link text-2xl" onclick="toggleMobileMenu()">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="section flex items-center min-h-screen relative overflow-hidden">
+        <div class="container relative z-10">
+            <div class="max-w-4xl fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 hero-text">
+                    Subarna Katwal
+                </h1>
+                <p class="text-xl md:text-2xl text-accent mb-4 typing-animation">
+                    Cybersecurity Learner & Python Developer
+                </p>
+                <p class="text-lg text-accent mb-12 max-w-2xl leading-relaxed">
+                    Passionate about securing the digital world through innovative cybersecurity solutions,
+                    Python automation, and AI security research. Building tomorrow's security today.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-code mr-2"></i>
+                        View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Let's Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Floating shapes for visual interest -->
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="max-w-4xl fade-in">
+                <h2 class="text-4xl font-bold mb-12 text-center">About Me</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-accent text-lg leading-relaxed">
+                            I'm a cybersecurity enthusiast with a passion for protecting digital infrastructure
+                            and exploring the intersection of security and artificial intelligence.
+                        </p>
+                        <p class="text-accent text-lg leading-relaxed">
+                            My journey in cybersecurity began with a curiosity about how systems work and how they can
+                            be protected.
+                            Today, I focus on developing innovative security solutions that leverage cutting-edge
+                            technology.
+                        </p>
+                        <div class="flex gap-4 pt-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white">50+</div>
+                                <div class="text-sm text-accent">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white">3+</div>
+                                <div class="text-sm text-accent">Years Learning</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white">24/7</div>
+                                <div class="text-sm text-accent">Security Focused</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-semibold mb-6 text-center">Core Focus Areas</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-shield-alt text-blue-400"></i>
+                                <span>Cybersecurity & Threat Analysis</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fab fa-python text-yellow-400"></i>
+                                <span>Python Development & Automation</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-robot text-purple-400"></i>
+                                <span>AI Security & Adversarial Research</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-network-wired text-green-400"></i>
+                                <span>Network Security & Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-12 text-center">Skills & Expertise</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-shield-alt text-blue-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Cybersecurity</h3>
+                        <p class="text-accent mb-6">
+                            Comprehensive security analysis, threat detection, and vulnerability assessment expertise
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">Vulnerability Assessment</span>
+                            <span class="skill-tag">Threat Analysis</span>
+                            <span class="skill-tag">Security Auditing</span>
+                            <span class="skill-tag">Penetration Testing</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fab fa-python text-yellow-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Python Development</h3>
+                        <p class="text-accent mb-6">
+                            Advanced Python programming for automation, data analysis, and security tool development
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">Automation Scripts</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Security Tools</span>
+                            <span class="skill-tag">API Development</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-robot text-purple-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">AI Security</h3>
+                        <p class="text-accent mb-6">
+                            Machine learning security research and adversarial attack prevention
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">ML Security</span>
+                            <span class="skill-tag">Adversarial AI</span>
+                            <span class="skill-tag">Model Robustness</span>
+                            <span class="skill-tag">AI Ethics</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-code text-green-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Web Development</h3>
+                        <p class="text-accent mb-6">
+                            Full-stack development with security-first architecture and best practices
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">Frontend Development</span>
+                            <span class="skill-tag">Backend APIs</span>
+                            <span class="skill-tag">Secure Coding</span>
+                            <span class="skill-tag">DevSecOps</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fab fa-linux text-orange-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Systems & Networking</h3>
+                        <p class="text-accent mb-6">
+                            Linux system administration and advanced network security implementation
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">Linux Administration</span>
+                            <span class="skill-tag">Network Security</span>
+                            <span class="skill-tag">Docker & Kubernetes</span>
+                            <span class="skill-tag">Cloud Security</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-database text-red-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Data Security</h3>
+                        <p class="text-accent mb-6">
+                            Database security, encryption implementation, and data protection strategies
+                        </p>
+                        <div class="flex flex-wrap">
+                            <span class="skill-tag">Database Security</span>
+                            <span class="skill-tag">Encryption</span>
+                            <span class="skill-tag">Data Protection</span>
+                            <span class="skill-tag">Privacy Compliance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-bug text-red-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">AI-Powered Vulnerability Scanner</h3>
+                        <p class="text-accent mb-6">
+                            Intelligent vulnerability detection system using machine learning algorithms
+                            for automated threat identification and risk assessment.
+                        </p>
+                        <div class="flex flex-wrap mb-6">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">FastAPI</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-network-wired text-blue-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Network Security Monitor</h3>
+                        <p class="text-accent mb-6">
+                            Real-time network traffic analysis and intrusion detection system
+                            with automated threat response and comprehensive logging.
+                        </p>
+                        <div class="flex flex-wrap mb-6">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Wireshark</span>
+                            <span class="skill-tag">Elasticsearch</span>
+                            <span class="skill-tag">Kibana</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="text-3xl mb-4">
+                            <i class="fas fa-brain text-purple-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">AI Security Framework</h3>
+                        <p class="text-accent mb-6">
+                            Comprehensive testing framework for AI model robustness against
+                            adversarial attacks and comprehensive security threat analysis.
+                        </p>
+                        <div class="flex flex-wrap mb-6">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">FastAPI</span>
+                            <span class="skill-tag">React</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="max-w-3xl mx-auto text-center fade-in">
+                <h2 class="text-4xl font-bold mb-8">Let's Connect</h2>
+                <p class="text-accent mb-12 text-lg leading-relaxed">
+                    Interested in collaborating on cybersecurity projects or discussing innovative security solutions?
+                    I'm always open to connecting with fellow security enthusiasts and potential collaborators.
+                </p>
+
+                <div class="flex justify-center gap-6 mb-12">
+                    <a href="https://linkedin.com/in/subarna-katwal" class="social-link" target="_blank"
+                        title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/subarna-katwal" class="social-link" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:subarna.katwal@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://facebook.com/subarna.katwal" class="social-link" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/subarna.katwal" class="social-link" target="_blank"
+                        title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+
+                <div class="card max-w-lg mx-auto">
+                    <h3 class="text-xl font-semibold mb-4">Quick Contact</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-blue-400"></i>
+                            <span>subarna.katwal@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-green-400"></i>
+                            <span>Available for remote collaboration</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-clock text-yellow-400"></i>
+                            <span>Usually responds within 24 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8">
+        <div class="container">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-accent mb-4 md:mb-0">
+                    <p>&copy; 2025 Subarna Katwal. All rights reserved.</p>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#home" class="text-accent hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-accent hover:text-white transition-colors">About</a>
+                    <a href="#skills" class="text-accent hover:text-white transition-colors">Skills</a>
+                    <a href="#projects" class="text-accent hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="text-accent hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll Indicator
+        function updateScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+
+            scrollIndicator.style.transform = `scaleX(${scrollPercentage / 100})`;
+        }
+
+        // Fade In Animation
+        function checkFadeIn() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Typing Animation
+        function startTypingAnimation() {
+            const text = "Cybersecurity Learner & Python Developer";
+            const element = document.querySelector('.typing-animation');
+            let index = 0;
+
+            element.textContent = '';
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                } else {
+                    element.classList.add('typing-complete');
+                }
+            }
+
+            setTimeout(type, 1000);
+        }
+
+        // Initialize animations and scroll events
+        window.addEventListener('scroll', () => {
+            updateScrollIndicator();
+            checkFadeIn();
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkFadeIn();
+            startTypingAnimation();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('mobileMenu');
+                if (menu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Smooth reveal animations for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
