@@ -3,172 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>This site can't be reached</title>
+    <title>Nepali Date Converter</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f9f9f9;
+        * {
             margin: 0;
-            padding: 40px 20px;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #d93025;
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .error-code {
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 20px;
-        }
-
-        .error-message {
-            font-size: 16px;
-            color: #202124;
-            margin-bottom: 30px;
-        }
-
-        .suggestions {
-            margin-bottom: 30px;
-        }
-
-        .suggestions h2 {
-            font-size: 18px;
-            color: #202124;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .suggestions ul {
-            list-style: none;
             padding: 0;
+            box-sizing: border-box;
         }
-
-        .suggestions li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-
-        .suggestions li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #5f6368;
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
         }
-
-        .btn {
-            background-color: #1a73e8;
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .converter-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
-            margin-right: 10px;
-            text-decoration: none;
-            display: inline-block;
+            transition: background 0.3s;
         }
-
-        .btn:hover {
-            background-color: #1557b0;
+        
+        button:hover {
+            background: #5568d3;
         }
-
-        .btn-secondary {
-            background-color: #f8f9fa;
-            color: #3c4043;
-            border: 1px solid #dadce0;
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            font-size: 16px;
+            color: #333;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
         }
-
-        .btn-secondary:hover {
-            background-color: #f1f3f4;
-        }
-
-        .technical-details {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 13px;
-            color: #5f6368;
-            margin: 30px 0;
-            border-left: 4px solid #dadce0;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e8eaed;
-            font-size: 12px;
-            color: #5f6368;
-            text-align: center;
-        }
-
-        .icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #9aa0a6;
+        
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🌐</div>
+        <h1>🗓️ Nepali Date Converter</h1>
         
-        <h1>This site can't be reached</h1>
-        
-        <div class="error-code">ERR_TEMPORARILY_UNREACHABLE</div>
-        
-        <div class="error-message">
-            The website is temporarily down for maintenance. We're working to restore all services.
+        <div class="converter-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; text-align: center; font-size: 20px;">📅 Today's Date</h2>
+            <div style="text-align: center; margin-top: 15px;">
+                <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;" id="todayAD">Loading...</div>
+                <div style="font-size: 18px; font-weight: bold;" id="todayBS">Loading...</div>
+            </div>
         </div>
         
-        <div class="suggestions">
-            <h2>Try:</h2>
-            <ul>
-                <li>Checking your internet connection</li>
-                <li>Checking any cables and restarting any routers, modems, or other network devices you may be using</li>
-                <li>Refreshing the page</li>
-                <li>Clearing your browser cache and cookies</li>
-                <li>Trying again in a few minutes</li>
-            </ul>
+        <div class="converter-section">
+            <h2>BS to AD (Nepali to English)</h2>
+            <div class="date-grid">
+                <div class="input-group">
+                    <label>Year (BS)</label>
+                    <input type="number" id="bsYear" value="2081" min="2000" max="2100">
+                </div>
+                <div class="input-group">
+                    <label>Month</label>
+                    <select id="bsMonth">
+                        <option value="1">Baishakh</option>
+                        <option value="2">Jestha</option>
+                        <option value="3">Ashar</option>
+                        <option value="4">Shrawan</option>
+                        <option value="5">Bhadra</option>
+                        <option value="6">Ashwin</option>
+                        <option value="7">Kartik</option>
+                        <option value="8" selected>Mangsir</option>
+                        <option value="9">Poush</option>
+                        <option value="10">Magh</option>
+                        <option value="11">Falgun</option>
+                        <option value="12">Chaitra</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Day</label>
+                    <input type="number" id="bsDay" value="1" min="1" max="32">
+                </div>
+            </div>
+            <button onclick="convertBStoAD()">Convert to AD</button>
+            <div class="result" id="bsResult">Result will appear here</div>
         </div>
         
-        <div>
-            <a href="#" class="btn" onclick="window.location.reload()">Reload</a>
-            <a href="#" class="btn btn-secondary">Help</a>
-        </div>
-        
-        <div class="technical-details">
-            HTTP ERROR 503<br>
-            Server: nginx/1.18.0<br>
-            Date: <span id="current-date"></span><br>
-            Connection: Keep-Alive<br>
-            Content-Type: text/html; charset=UTF-8
-        </div>
-        
-        <div class="footer">
-            © Subarna Katwal
+        <div class="converter-section">
+            <h2>AD to BS (English to Nepali)</h2>
+            <div class="input-group">
+                <label>English Date (AD)</label>
+                <input type="date" id="adDate" value="2024-11-12">
+            </div>
+            <button onclick="convertADtoBS()">Convert to BS</button>
+            <div class="result" id="adResult">Result will appear here</div>
         </div>
     </div>
 
     <script>
-        // Simple date update
-        document.getElementById('current-date').textContent = new Date().toUTCString();
+        const nepaliMonths = ['Baishakh', 'Jestha', 'Ashar', 'Shrawan', 'Bhadra', 'Ashwin', 
+                              'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'];
+        
+        // Complete Nepali calendar data from 2000 BS to 2090 BS
+        const bsMonthDays = {
+            2000: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2001: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2002: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2003: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2004: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2005: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2006: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2007: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2008: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
+            2009: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2010: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2011: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2012: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+            2013: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2014: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2015: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2016: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+            2017: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2018: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2019: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2020: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2021: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2022: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2023: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2024: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2025: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2026: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2027: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2028: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2029: [31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
+            2030: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2031: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2032: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2033: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2034: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2035: [30, 32, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
+            2036: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2037: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2038: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2039: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+            2040: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2041: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2042: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2043: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+            2044: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2045: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2046: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2047: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2048: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2049: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2050: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2051: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2052: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2053: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2054: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2055: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2056: [31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
+            2057: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2058: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2059: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2060: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2061: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2062: [30, 32, 31, 32, 31, 31, 29, 30, 29, 30, 29, 31],
+            2063: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2064: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2065: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2066: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
+            2067: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2068: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2069: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2070: [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
+            2071: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2072: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2073: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+            2074: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2075: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2076: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2077: [31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
+            2078: [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
+            2079: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2080: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2081: [31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30],
+            2082: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
+            2083: [31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
+            2084: [31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
+            2085: [31, 32, 31, 32, 30, 31, 30, 30, 29, 30, 30, 30],
+            2086: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
+            2087: [31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30],
+            2088: [30, 31, 32, 32, 30, 31, 30, 30, 29, 30, 30, 30],
+            2089: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
+            2090: [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30]
+        };
+        
+        // Reference date: 2000/01/01 BS = 1943/04/14 AD
+        const bsEpoch = { year: 2000, month: 1, day: 1 };
+        const adEpoch = new Date(1943, 3, 14); // April 14, 1943
+        
+        function getDaysInBSMonth(year, month) {
+            if (bsMonthDays[year]) {
+                return bsMonthDays[year][month - 1];
+            }
+            // Default days if year not in table
+            const defaultDays = [31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30];
+            return defaultDays[month - 1];
+        }
+        
+        function convertBStoAD() {
+            const year = parseInt(document.getElementById('bsYear').value);
+            const month = parseInt(document.getElementById('bsMonth').value);
+            const day = parseInt(document.getElementById('bsDay').value);
+            
+            if (!year || !month || !day) {
+                document.getElementById('bsResult').textContent = 'Please enter valid date';
+                return;
+            }
+            
+            // Calculate total days from epoch
+            let totalDays = 0;
+            
+            // Add days for complete years
+            for (let y = bsEpoch.year; y < year; y++) {
+                for (let m = 1; m <= 12; m++) {
+                    totalDays += getDaysInBSMonth(y, m);
+                }
+            }
+            
+            // Add days for complete months in current year
+            for (let m = 1; m < month; m++) {
+                totalDays += getDaysInBSMonth(year, m);
+            }
+            
+            // Add remaining days
+            totalDays += day - 1;
+            
+            // Add to epoch date
+            const adDate = new Date(adEpoch);
+            adDate.setDate(adDate.getDate() + totalDays);
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const formatted = adDate.toLocaleDateString('en-US', options);
+            
+            document.getElementById('bsResult').textContent = 
+                `${formatted} (${adDate.getFullYear()}-${String(adDate.getMonth() + 1).padStart(2, '0')}-${String(adDate.getDate()).padStart(2, '0')})`;
+        }
+        
+        function convertADtoBS() {
+            const adDateInput = document.getElementById('adDate').value;
+            if (!adDateInput) {
+                document.getElementById('adResult').textContent = 'Please select a date';
+                return;
+            }
+            
+            const adDate = new Date(adDateInput);
+            const daysDiff = Math.floor((adDate - adEpoch) / (1000 * 60 * 60 * 24));
+            
+            let bsYear = bsEpoch.year;
+            let bsMonth = bsEpoch.month;
+            let bsDay = bsEpoch.day;
+            let remainingDays = daysDiff;
+            
+            // Calculate BS date
+            while (remainingDays > 0) {
+                const daysInMonth = getDaysInBSMonth(bsYear, bsMonth);
+                const daysLeftInMonth = daysInMonth - bsDay + 1;
+                
+                if (remainingDays >= daysLeftInMonth) {
+                    remainingDays -= daysLeftInMonth;
+                    bsDay = 1;
+                    bsMonth++;
+                    
+                    if (bsMonth > 12) {
+                        bsMonth = 1;
+                        bsYear++;
+                    }
+                } else {
+                    bsDay += remainingDays;
+                    remainingDays = 0;
+                }
+            }
+            
+            document.getElementById('adResult').textContent = 
+                `${bsYear} ${nepaliMonths[bsMonth - 1]} ${bsDay} (${bsYear}/${String(bsMonth).padStart(2, '0')}/${String(bsDay).padStart(2, '0')})`;
+        }
+        
+        // Set today's date in AD input and display today's dates
+        const today = new Date();
+        document.getElementById('adDate').value = today.toISOString().split('T')[0];
+        
+        // Display today's dates
+        function displayTodaysDates() {
+            // Display today's AD date
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const todayADFormatted = today.toLocaleDateString('en-US', options);
+            document.getElementById('todayAD').textContent = `AD: ${todayADFormatted}`;
+            
+            // Calculate and display today's BS date
+            const daysDiff = Math.floor((today - adEpoch) / (1000 * 60 * 60 * 24));
+            
+            let bsYear = bsEpoch.year;
+            let bsMonth = bsEpoch.month;
+            let bsDay = bsEpoch.day;
+            let remainingDays = daysDiff;
+            
+            while (remainingDays > 0) {
+                const daysInMonth = getDaysInBSMonth(bsYear, bsMonth);
+                const daysLeftInMonth = daysInMonth - bsDay + 1;
+                
+                if (remainingDays >= daysLeftInMonth) {
+                    remainingDays -= daysLeftInMonth;
+                    bsDay = 1;
+                    bsMonth++;
+                    
+                    if (bsMonth > 12) {
+                        bsMonth = 1;
+                        bsYear++;
+                    }
+                } else {
+                    bsDay += remainingDays;
+                    remainingDays = 0;
+                }
+            }
+            
+            document.getElementById('todayBS').textContent = 
+                `BS: ${bsYear} ${nepaliMonths[bsMonth - 1]} ${bsDay}`;
+        }
+        
+        displayTodaysDates();
     </script>
 </body>
 </html>
