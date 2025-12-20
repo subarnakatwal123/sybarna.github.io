@@ -3,90 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr. Subarna Katwal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rye&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
-
+    <title>Stream of Consciousness</title>
     <style>
-        /* 1. PAPER TEXTURE & BACKGROUND */
-        body {
-            background-color: #f3e9d2; /* Old parchment color */
-            /* CSS Noise pattern to look like paper grain */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1a1a1a; /* Ink black (not pure black) */
-            overflow: hidden; /* Prevents scrollbars */
+        :root { --bg: #ffffff; --text: #222; --accent: #000; }
+        body { font-family: 'Courier New', Courier, monospace; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
+        
+        /* Layout */
+        #container { max-width: 650px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* The Posts */
+        .note { 
+            border-left: 3px solid #eee; 
+            padding-left: 15px; 
+            margin-bottom: 40px; 
+            white-space: pre-wrap; /* Keeps your formatting */
         }
+        .timestamp { font-size: 0.75rem; color: #888; display: block; margin-bottom: 5px; }
 
-        /* 2. THE MAIN FRAME (The Notice Board) */
-        .container {
-            border: 6px double #1a1a1a; /* Double lines were common */
-            padding: 60px 40px;
-            text-align: center;
-            max-width: 90%;
-            width: 800px;
-            position: relative;
-            background: rgba(243, 233, 210, 0.6); /* Slight blend with background */
-            box-shadow: 15px 15px 0px rgba(0,0,0,0.1); /* Hard shadow, no blur */
+        /* Admin UI (Hidden) */
+        #admin-panel {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 100; padding: 20px; box-sizing: border-box;
         }
-
-        /* Corner Ornaments using CSS pseudo-elements */
-        .container::before, .container::after {
-            content: "⚜";
-            font-size: 40px;
-            position: absolute;
-            line-height: 1;
-        }
-        .container::before { top: 10px; left: 15px; }
-        .container::after { bottom: 10px; right: 15px; transform: rotate(180deg); }
-
-        /* 3. TYPOGRAPHY */
-        .intro-text {
-            font-family: 'IM Fell English SC', serif; /* Small Caps font */
-            font-size: 2rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #1a1a1a;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .name-text {
-            font-family: 'Rye', serif; /* Victorian Poster Font */
-            font-size: clamp(3rem, 8vw, 6rem); /* Responsive giant text */
-            margin: 0;
-            line-height: 1.1;
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.2); /* Letterpress depression effect */
-        }
-
-        .honorific {
-            font-family: 'IM Fell English SC', serif;
-            font-size: 1.5rem;
-            display: block;
-            margin-top: 10px;
-            font-style: italic;
-        }
-
+        textarea { width: 100%; height: 300px; padding: 15px; border: 2px solid #333; font-family: inherit; margin-bottom: 10px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; }
+        button { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #444; }
+        
+        /* Secret Button */
+        #secret-btn { position: fixed; bottom: 0; right: 0; width: 20px; height: 20px; opacity: 0; cursor: default; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="intro-text">This Website Belongs To</div>
-        
-        <h1 class="name-text">
-            <span style="font-size: 0.6em; vertical-align: middle;">MR.</span> 
-            Subarna<br>Katwal
-        </h1>
-        
-        <div class="honorific">❦ EST. 2019 ❦</div>
+    <div id="container">
+        <h2 style="margin-bottom: 40px;">// My Notes</h2>
+        <div id="notes-list">Loading...</div>
     </div>
 
+    <div id="secret-btn" onclick="openAdmin()"></div>
+
+    <div id="admin-panel">
+        <h3>Add New Note</h3>
+        <input type="password" id="github-token" placeholder="Paste GitHub Token Here to verify it's you">
+        <textarea id="new-content" placeholder="Write something..."></textarea>
+        <button onclick="postToGitHub()">Commit Change</button>
+        <button onclick="document.getElementById('admin-panel').style.display='none'" style="background:#888">Close</button>
+        <p id="status" style="margin-top:10px; font-size: 0.9rem; color: #666;"></p>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const REPO_OWNER = "YOUR_GITHUB_USERNAME";  // e.g., "johnDoe"
+        const REPO_NAME = "YOUR_REPO_NAME";        // e.g., "my-thoughts"
+        const FILE_PATH = "notes.json";
+        // ---------------------
+
+        // 1. READ DATA (Fetch Raw JSON)
+        async function loadNotes() {
+            const list = document.getElementById('notes-list');
+            // We add a timestamp query to bypass browser caching
+            const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${FILE_PATH}?t=${Date.now()}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Could not fetch notes");
+                const notes = await response.json();
+                
+                list.innerHTML = '';
+                // Show newest first
+                notes.reverse().forEach(note => {
+                    const div = document.createElement('div');
+                    div.className = 'note';
+                    div.innerHTML = `<span class="timestamp">${new Date(note.date).toLocaleString()}</span>${note.text}`;
+                    list.appendChild(div);
+                });
+            } catch (err) {
+                list.innerHTML = "No notes found (or check your Config variables).";
+            }
+        }
+
+        // 2. WRITE DATA (GitHub API)
+        async function postToGitHub() {
+            const token = document.getElementById('github-token').value;
+            const content = document.getElementById('new-content').value;
+            const status = document.getElementById('status');
+
+            if (!token || !content) {
+                alert("Token and Content required!");
+                return;
+            }
+
+            status.innerText = "Fetching current file SHA...";
+
+            try {
+                // Step A: Get the current file (we need its 'sha' to update it)
+                const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+                const getRes = await fetch(apiUrl, {
+                    headers: { 
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
+                
+                const fileData = await getRes.json();
+                
+                // Decode current content (GitHub sends it in Base64)
+                // Note: Standard 'atob' can fail with unicode, but fine for basic text.
+                // For a robust app, we'd use a better decoder, but this works for simple notes.
+                const currentContent = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+                
+                // Step B: Add new note
+                currentContent.push({
+                    text: content,
+                    date: new Date().toISOString()
+                });
+
+                // Step C: Encode back to Base64
+                const newContentBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(currentContent, null, 2))));
+
+                status.innerText = "Committing to GitHub...";
+
+                // Step D: PUT request to update file
+                const putRes = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "New note added via web",
+                        content: newContentBase64,
+                        sha: fileData.sha // Required to prove we are updating the latest version
+                    })
+                });
+
+                if (putRes.ok) {
+                    status.innerText = "Success! Update will appear in ~1 minute.";
+                    document.getElementById('new-content').value = "";
+                    setTimeout(() => {
+                        document.getElementById('admin-panel').style.display = 'none';
+                        loadNotes(); // Reload locally (might still show old cached data for a moment)
+                    }, 1500);
+                } else {
+                    status.innerText = "Error: " + putRes.statusText;
+                }
+
+            } catch (err) {
+                console.error(err);
+                status.innerText = "Failed. Check console for details.";
+            }
+        }
+
+        function openAdmin() {
+            document.getElementById('admin-panel').style.display = 'block';
+        }
+
+        // Load on start
+        loadNotes();
+    </script>
 </body>
 </html>
