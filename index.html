@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optical CX Dashboard</title>
+<style>
+    :root {
+        --primary: #2563eb;       /* Modern Blue */
+        --primary-dark: #1e40af;
+        --accent: #3b82f6;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --card-bg: #ffffff;
+        --text-main: #1e293b;
+        --text-light: #64748b;
+        --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --radius: 16px;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        color: var(--text-main);
+    }
+
+    /* Main Glass Container */
+    .dashboard-container {
+        width: 100%;
+        max-width: 1000px;
+        background: var(--glass-bg);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Header Section */
+    .header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(to right, #2563eb, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.02em;
+    }
+
+    .header p {
+        margin-top: 10px;
+        color: var(--text-light);
+        font-size: 1rem;
+    }
+
+    /* Grid Layout */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    /* Tool Cards */
+    .tool-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 30px;
+        text-decoration: none;
+        color: var(--text-main);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e2e8f0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Hover Effects */
+    .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.15);
+        border-color: var(--accent);
+    }
+
+    /* Icons */
+    .icon-wrapper {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    /* Icon Specific Colors */
+    .icon-cl { background: #eff6ff; color: #2563eb; } /* Blue */
+    .icon-price { background: #f0fdf4; color: #16a34a; } /* Green */
+    .icon-dv { background: #fefce8; color: #ca8a04; } /* Yellow */
+
+    .tool-card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Typography */
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .card-desc {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    /* Action Arrow */
+    .action-text {
+        margin-top: auto;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--primary);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .tool-card:hover .action-text {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .dashboard-container { padding: 20px; }
+        .header h1 { font-size: 1.5rem; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="header">
+        <h1>Optical CX Dashboard</h1>
+        <p>Select a specialized tool to assist your customer</p>
+    </div>
+
+    <div class="grid">
+        
+        <a href="cl_converter.html" class="tool-card">
+            <div class="icon-wrapper icon-cl">👁️</div>
+            <div class="card-title">Contacts Converter</div>
+            <div class="card-desc">Convert spectacle Rx to contact lenses. Includes Vertex compensation & pack logic.</div>
+            <div class="action-text">Launch Tool →</div>
+        </a>
+
+        <a href="lens_pricing.html" class="tool-card">
+            <div class="icon-wrapper icon-price">💰</div>
+            <div class="card-title">Pricing & Stock</div>
+            <div class="card-desc">Instant stock check for FSV. Consultation warnings for High Power & Progressives.</div>
+            <div class="action-text">Launch Tool →</div>
+        </a>
+
+        <a href="dv_nv.html" class="tool-card">
+            <div class="icon-wrapper icon-dv">👓</div>
+            <div class="card-title">DV / NV Splitter</div>
+            <div class="card-desc">Separate multifocal prescriptions into single-vision Distance and Reading glasses.</div>
+            <div class="action-text">Launch Tool →</div>
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

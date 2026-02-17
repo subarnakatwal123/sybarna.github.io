@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DV / NV Converter</title>
+<style>
+    :root {
+        /* Theme Variables */
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --accent: #3b82f6;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --text-main: #1e293b;
+        --text-light: #64748b;
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --radius: 16px;
+
+        /* Specific Tool Colors */
+        --dv-color: #0ea5e9; /* Sky Blue */
+        --nv-color: #22c55e; /* Green */
+        --error-bg: #fee2e2;
+        --error-text: #991b1b;
+        --warn-bg: #fef9c3;
+        --warn-text: #854d0e;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .widget-container {
+        width: 100%;
+        max-width: 900px;
+        background: var(--glass-bg);
+        border-radius: 24px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    /* HEADER */
+    .widget-header {
+        background: rgba(255,255,255,0.5);
+        padding: 20px 30px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-title-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .widget-header h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    .badge {
+        background: var(--accent);
+        color: white;
+        font-size: 0.7rem;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .back-link {
+        text-decoration: none;
+        color: var(--text-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+
+    /* ALERT BOX */
+    .alert-box {
+        display: none;
+        padding: 15px 30px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .alert-error { background: var(--error-bg); color: var(--error-text); }
+    .alert-warn { background: var(--warn-bg); color: var(--warn-text); }
+
+    /* FORM INPUTS */
+    .form-section { padding: 30px; }
+
+    .rx-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        margin-bottom: 20px;
+        background: rgba(248, 250, 252, 0.5);
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .eye-label {
+        font-weight: 900;
+        width: 40px;
+        color: var(--primary);
+        font-size: 1.2rem;
+        padding-bottom: 12px;
+    }
+
+    .field-group { flex: 1; }
+    
+    .field-group label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        box-sizing: border-box;
+        transition: all 0.2s;
+    }
+    input[type="number"]:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        outline: none;
+    }
+
+    .add-row {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #cbd5e1;
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+    }
+
+    .btn-convert {
+        flex: 1;
+        height: 48px;
+        background: linear-gradient(to right, #2563eb, #3b82f6);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+    .btn-convert:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    }
+
+    /* RESULTS SECTION */
+    .results-section {
+        display: none;
+        padding: 30px;
+        background: rgba(255,255,255,0.4);
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .res-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+    }
+
+    .res-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+    }
+    .res-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -5px rgba(0,0,0,0.1); }
+
+    .res-head {
+        padding: 15px 20px;
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    .dv-theme { background: linear-gradient(to right, #0ea5e9, #0284c7); } /* Cyan Gradient */
+    .nv-theme { background: linear-gradient(to right, #22c55e, #16a34a); } /* Green Gradient */
+
+    .res-table { width: 100%; border-collapse: collapse; }
+    
+    .res-table th {
+        text-align: left;
+        font-size: 0.75rem;
+        color: var(--text-light);
+        padding: 12px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        background: #f8fafc;
+    }
+    
+    .res-table td {
+        padding: 12px 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text-main);
+        border-bottom: 1px dashed #f1f5f9;
+    }
+    .res-table tr:last-child td { border-bottom: none; }
+
+    .diff-val { color: var(--nv-color); font-weight: 800; } 
+
+    /* Helper utilities */
+    .hidden { display: none !important; }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 650px) {
+        .rx-row { flex-direction: column; align-items: stretch; gap: 10px; }
+        .eye-label { padding-bottom: 0; margin-bottom: 5px; border-bottom: 1px solid #eee; width: 100%; }
+        .add-row { flex-direction: column; align-items: stretch; }
+        .btn-convert { width: 100%; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="widget-container">
+    <div class="widget-header">
+        <div class="header-title-group">
+            <h3>Optics Lab Converter</h3>
+            <span class="badge">SafeMode v2.0</span>
+        </div>
+        <a href="index.html" class="back-link">← Back to Dashboard</a>
+    </div>
+
+    <div id="alertArea" class="alert-box"></div>
+
+    <div class="form-section">
+        <div class="rx-row">
+            <div class="eye-label">OD</div>
+            <div class="field-group">
+                <label>Sphere</label>
+                <input type="number" id="od-sph" step="0.25" placeholder="0.00">
+            </div>
+            <div class="field-group">
+                <label>Cylinder</label>
+                <input type="number" id="od-cyl" step="0.25" placeholder="0.00">
+            </div>
+            <div class="field-group">
+                <label>Axis</label>
+                <input type="number" id="od-axis" placeholder="1-180">
+            </div>
+        </div>
+
+        <div class="rx-row">
+            <div class="eye-label">OS</div>
+            <div class="field-group">
+                <label>Sphere</label>
+                <input type="number" id="os-sph" step="0.25" placeholder="0.00">
+            </div>
+            <div class="field-group">
+                <label>Cylinder</label>
+                <input type="number" id="os-cyl" step="0.25" placeholder="0.00">
+            </div>
+            <div class="field-group">
+                <label>Axis</label>
+                <input type="number" id="os-axis" placeholder="1-180">
+            </div>
+        </div>
+
+        <div class="add-row">
+            <div class="field-group" style="max-width: 150px;">
+                <label>Addition (+)</label>
+                <input type="number" id="rx-add" step="0.25" placeholder="+2.00">
+            </div>
+            <button class="btn-convert" onclick="processPrescription()">Convert to Single Vision</button>
+        </div>
+    </div>
+
+    <div id="results" class="results-section">
+        <div class="res-grid">
+            
+            <div class="res-card">
+                <div class="res-head dv-theme">Distance (Far)</div>
+                <table class="res-table">
+                    <thead><tr><th>EYE</th><th>SPH</th><th>CYL</th><th>AXIS</th></tr></thead>
+                    <tbody id="dv-body"></tbody>
+                </table>
+            </div>
+
+            <div class="res-card">
+                <div class="res-head nv-theme">Reading (Near)</div>
+                <table class="res-table">
+                    <thead><tr><th>EYE</th><th>SPH</th><th>CYL</th><th>AXIS</th></tr></thead>
+                    <tbody id="nv-body"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- UTILITIES ---
+
+    // 1. Precise Floating Point Math
+    function cleanFloat(num) {
+        return Math.round((num + Number.EPSILON) * 100) / 100;
+    }
+
+    // 2. Format Display
+    function formatVal(num, isAxis = false) {
+        if (num === "" || num === null || isNaN(num)) return "0.00"; 
+        
+        let val = parseFloat(num);
+        
+        // Sanitize Zero
+        if (val === 0) val = 0; 
+
+        if (isAxis) return Math.round(val); 
+        
+        // Force 2 decimals and sign
+        return (val > 0 ? "+" : "") + val.toFixed(2);
+    }
+
+    // 3. UI Alert Helper
+    function showAlert(msg, type = "error") {
+        const el = document.getElementById('alertArea');
+        el.className = `alert-box alert-${type}`;
+        el.style.display = 'block';
+        el.innerText = (type === "error" ? "⛔ Error: " : "⚠️ Warning: ") + msg;
+        if(type === "error") {
+            document.getElementById('results').style.display = 'none'; 
+            throw new Error("Validation Failed"); 
+        }
+    }
+
+    // --- MAIN LOGIC ---
+
+    function processPrescription() {
+        // Reset UI
+        document.getElementById('alertArea').style.display = 'none';
+        
+        // 1. Gather Inputs
+        const inputs = {
+            od: {
+                sph: document.getElementById('od-sph').value,
+                cyl: document.getElementById('od-cyl').value,
+                axis: document.getElementById('od-axis').value
+            },
+            os: {
+                sph: document.getElementById('os-sph').value,
+                cyl: document.getElementById('os-cyl').value,
+                axis: document.getElementById('os-axis').value
+            },
+            add: document.getElementById('rx-add').value
+        };
+
+        // 2. RUN VALIDATIONS
+        if (inputs.add === "") {
+            showAlert("Addition (ADD) power is required to calculate Near Vision.");
+        }
+
+        const addVal = parseFloat(inputs.add);
+
+        if (addVal < 0) {
+            showAlert("ADD power cannot be negative. Please check input.");
+        }
+
+        if (addVal > 4.00) {
+            showAlert("High Addition power detected (> +4.00). Please verify.", "warn");
+        }
+
+        // Validate Eyes
+        validateEye('OD', inputs.od);
+        validateEye('OS', inputs.os);
+
+        if(inputs.od.sph === "" && (inputs.od.cyl || inputs.od.axis)) showAlert("OD Sphere is required.");
+        if(inputs.os.sph === "" && (inputs.os.cyl || inputs.os.axis)) showAlert("OS Sphere is required.");
+
+        // 3. CALCULATION & RENDERING
+        renderResults(inputs, addVal);
+    }
+
+    function validateEye(side, data) {
+        let cyl = parseFloat(data.cyl) || 0;
+        let axis = parseFloat(data.axis);
+        let hasAxis = (data.axis !== "");
+
+        if (cyl !== 0 && !hasAxis) {
+            showAlert(`${side}: Cylinder is present (${cyl}), so Axis is required.`);
+        }
+
+        if (hasAxis && (axis < 1 || axis > 180)) {
+            showAlert(`${side}: Axis must be between 1 and 180.`);
+        }
+
+        if (cyl === 0 && hasAxis) {
+            showAlert(`${side}: Axis entered (${axis}) but Cylinder is 0. Axis will be ignored.`, "warn");
+        }
+    }
+
+    function renderResults(inputs, addVal) {
+        const odSph = parseFloat(inputs.od.sph) || 0;
+        const osSph = parseFloat(inputs.os.sph) || 0;
+
+        // MATH MAGIC
+        const odNear = cleanFloat(odSph + addVal);
+        const osNear = cleanFloat(osSph + addVal);
+
+        // Render DV Table
+        document.getElementById('dv-body').innerHTML = `
+            ${createRow('OD', inputs.od.sph, inputs.od.cyl, inputs.od.axis)}
+            ${createRow('OS', inputs.os.sph, inputs.os.cyl, inputs.os.axis)}
+        `;
+
+        // Render NV Table
+        document.getElementById('nv-body').innerHTML = `
+            ${createRow('OD', odNear, inputs.od.cyl, inputs.od.axis, true)}
+            ${createRow('OS', osNear, inputs.os.cyl, inputs.os.axis, true)}
+        `;
+
+        document.getElementById('results').style.display = 'block';
+    }
+
+    function createRow(eye, sph, cyl, axis, isNear = false) {
+        let s = formatVal(sph);
+        let c = (cyl === "" || parseFloat(cyl) === 0) ? "—" : formatVal(cyl);
+        let a = (axis === "" || parseFloat(cyl) === 0) ? "—" : formatVal(axis, true);
+
+        // Highlight the changed Sphere for Near Vision
+        let sphClass = isNear ? 'diff-val' : '';
+
+        return `
+            <tr>
+                <td style="color:var(--text-light); font-size:0.9rem;">${eye}</td>
+                <td class="${sphClass}">${s}</td>
+                <td>${c}</td>
+                <td>${a}</td>
+            </tr>
+        `;
+    }
+
+</script>
+
+</body>
+</html>

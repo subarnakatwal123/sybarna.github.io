@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lens Recommendation Engine</title>
+<style>
+    :root {
+        /* Theme Variables matching Dashboard */
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --accent: #3b82f6;
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --text-main: #1e293b;
+        --text-light: #64748b;
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --radius: 16px;
+
+        /* Status Colors */
+        --urgent: #16a34a; /* Green */
+        --consult: #dc2626; /* Red */
+        --warn: #ca8a04;    /* Yellow/Orange */
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .widget-container {
+        width: 100%;
+        max-width: 900px;
+        background: var(--glass-bg);
+        border-radius: 24px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    /* HEADER & NAV */
+    .widget-header {
+        background: rgba(255,255,255,0.5);
+        padding: 20px 30px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .widget-header h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--primary);
+    }
+
+    .back-link {
+        text-decoration: none;
+        color: var(--text-light);
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+
+    /* FORM SECTION */
+    .form-section {
+        padding: 30px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .rx-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        background: rgba(248, 250, 252, 0.5);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .rx-label {
+        font-weight: 900;
+        width: 40px;
+        color: var(--primary);
+        font-size: 1.1rem;
+    }
+
+    .input-group { flex: 1; }
+    
+    .input-group label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .rx-input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        box-sizing: border-box; 
+        transition: all 0.2s;
+    }
+    .rx-input:focus { 
+        border-color: var(--primary); 
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        outline: none; 
+    }
+
+    .add-section {
+        margin-top: 20px;
+        padding: 20px;
+        background: #eff6ff; /* Very light blue */
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px dashed #bfdbfe;
+    }
+
+    .frame-toggles {
+        margin-top: 25px;
+        display: flex;
+        gap: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .radio-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .btn-calc {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(to right, #2563eb, #3b82f6);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 25px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+    .btn-calc:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    }
+
+    /* RESULTS SECTION */
+    .results-area {
+        padding: 30px;
+        display: none;
+        background: rgba(255,255,255,0.3);
+    }
+
+    .status-banner {
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid transparent;
+    }
+    /* Updated Modern Banners */
+    .status-banner.normal { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+    .status-banner.consult { background: #fef9c3; color: #854d0e; border-color: #fde047; }
+    .status-banner.high-power { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+    /* CARD GRID */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .opt-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .opt-card:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 15px 25px -5px rgba(0,0,0,0.1);
+        border-color: var(--accent);
+    }
+
+    .opt-header {
+        background: #f8fafc;
+        padding: 15px 20px;
+        font-weight: 700;
+        color: var(--text-main);
+        border-bottom: 1px solid #e2e8f0;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .opt-body { padding: 20px; }
+
+    .opt-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #e2e8f0;
+    }
+    .opt-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .opt-name { font-size: 0.95rem; font-weight: 600; color: #334155; }
+    
+    .opt-price { font-weight: 800; color: var(--urgent); }
+    .opt-price.check { color: var(--warn); font-size: 0.9rem; }
+
+    .opt-features {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-top: 6px;
+        padding-left: 0;
+        list-style: none;
+        line-height: 1.4;
+    }
+    .opt-features li { display: inline-block; margin-right: 8px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; }
+
+    /* Special Warning Card Style */
+    .card-warning { border-color: var(--consult); background: #fff5f5; }
+    .card-warning .opt-header { background: var(--consult); color: white; }
+    
+    .card-info { border-color: var(--warn); background: #fffff0; }
+    .card-info .opt-header { background: var(--warn); color: white; }
+
+    /* Responsiveness */
+    @media (max-width: 600px) {
+        .rx-row { flex-direction: column; align-items: stretch; }
+        .input-group { margin-bottom: 10px; }
+        .status-banner { flex-direction: column; gap: 5px; text-align: center; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="widget-container">
+    <div class="widget-header">
+        <h3>Lens Recommendation Engine</h3>
+        <a href="index.html" class="back-link">← Back to Dashboard</a>
+    </div>
+
+    <div class="form-section">
+        
+        <div class="rx-row">
+            <div class="rx-label">OD</div>
+            <div class="input-group">
+                <label>Sphere</label>
+                <input type="number" id="od-sph" class="rx-input" step="0.25" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>Cylinder</label>
+                <input type="number" id="od-cyl" class="rx-input" step="0.25" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>Axis</label>
+                <input type="number" id="od-axis" class="rx-input" placeholder="0-180">
+            </div>
+        </div>
+
+        <div class="rx-row">
+            <div class="rx-label">OS</div>
+            <div class="input-group">
+                <label>Sphere</label>
+                <input type="number" id="os-sph" class="rx-input" step="0.25" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>Cylinder</label>
+                <input type="number" id="os-cyl" class="rx-input" step="0.25" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>Axis</label>
+                <input type="number" id="os-axis" class="rx-input" placeholder="0-180">
+            </div>
+        </div>
+
+        <div class="add-section">
+            <div class="input-group" style="max-width: 150px;">
+                <label>ADDITION (NV)</label>
+                <input type="number" id="rx-add" class="rx-input" step="0.25" placeholder="0.00">
+            </div>
+            <span style="font-size: 0.85rem; color: #666; font-weight:500;">Leave 0.00 for Single Vision</span>
+        </div>
+
+        <div class="frame-toggles">
+            <label class="radio-label">
+                <input type="radio" name="frameType" value="eyeglasses" checked> Eyeglasses
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="frameType" value="sunglasses"> Sunglasses
+            </label>
+        </div>
+
+        <button class="btn-calc" onclick="calculateLens()">Check Availability & Price</button>
+    </div>
+
+    <div id="results" class="results-area">
+        <div id="statusBanner" class="status-banner normal"></div>
+        <div id="gridArea" class="options-grid"></div>
+    </div>
+</div>
+
+<script>
+    function calculateLens() {
+        // 1. Get Values
+        const odSph = parseFloat(document.getElementById('od-sph').value) || 0;
+        const odCyl = parseFloat(document.getElementById('od-cyl').value) || 0;
+        const osSph = parseFloat(document.getElementById('os-sph').value) || 0;
+        const osCyl = parseFloat(document.getElementById('os-cyl').value) || 0;
+        const add = parseFloat(document.getElementById('rx-add').value) || 0;
+        const frameType = document.querySelector('input[name="frameType"]:checked').value;
+
+        // 2. Logic Flags
+        let isBifocal = (add > 0);
+        let isHighPower = false;
+        let hasCylinder = (Math.abs(odCyl) > 0 || Math.abs(osCyl) > 0);
+
+        // 3. Check High Power Limits
+        function checkEye(sph, cyl) {
+            if (Math.abs(cyl) > 2.00) return true;
+            if (sph < 0) { if (sph < -5.00) return true; } 
+            else { if (sph > 3.00) return true; }
+            return false;
+        }
+
+        if (checkEye(odSph, odCyl) || checkEye(osSph, osCyl)) {
+            isHighPower = true;
+        }
+
+        // 4. Render Setup
+        const resultsDiv = document.getElementById('results');
+        const banner = document.getElementById('statusBanner');
+        const grid = document.getElementById('gridArea');
+        resultsDiv.style.display = "block";
+        grid.innerHTML = "";
+
+        // ============================================================
+        // SCENARIO 1: BIFOCAL / PROGRESSIVE (ADDITION > 0)
+        // ============================================================
+        if (isBifocal) {
+            banner.className = "status-banner consult";
+            banner.innerHTML = `
+                <span>⚠️ Multifocal Rx Detected</span>
+                <span style="font-size:0.9rem">Consult Lens Dept for Pricing</span>
+            `;
+
+            // Note card
+            grid.innerHTML += `
+                <div class="opt-card card-info" style="grid-column: 1/-1;">
+                     <div class="opt-header">Availability Note</div>
+                    <div class="opt-body">
+                        Lenses are available, but please check the pricing details and availability with the lens department as most are Rx (Custom Made) and prices vary.
+                    </div>
+                </div>
+            `;
+
+            // Progressive Card
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Progressive Lenses (No Line)</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Blue Cut Progressive</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                        <div class="opt-item">
+                            <span class="opt-name">Photochromic + Blue Progressive</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                         <div class="opt-item">
+                            <span class="opt-name">Hardcoat Progressive</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Bifocal Card
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Bifocal Lenses (Visible Line)</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Blue Cut Bifocal</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                        <div class="opt-item">
+                            <span class="opt-name">Photochromic + Blue Bifocal</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                         <div class="opt-item">
+                            <span class="opt-name">Hardcoat Bifocal</span>
+                            <span class="opt-price check">Check Price</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return; 
+        }
+
+        // ============================================================
+        // SCENARIO 2: HIGH POWER (No ADD)
+        // ============================================================
+        if (isHighPower) {
+             banner.className = "status-banner high-power";
+             banner.innerHTML = `
+                <span>⚠️ High Power / Custom Rx</span>
+                <span>Requires Manual Check</span>
+            `;
+
+            grid.innerHTML = `
+                <div class="opt-card card-warning" style="grid-column: 1/-1;">
+                    <div class="opt-header">Please Consult Lens Department</div>
+                    <div class="opt-body">
+                        <p><strong>Pricing & Availability Confirmation Required</strong></p>
+                        <p>This prescription exceeds standard stock ranges:</p>
+                        <ul style="color: #991b1b; font-size: 0.9rem; list-style-position: inside;">
+                            <li>Minus Power > -5.00</li>
+                            <li>Plus Power > +3.00</li>
+                            <li>Cylinder > -2.00</li>
+                        </ul>
+                        <p style="margin-top:15px; font-weight:bold; color: #dc2626;">DO NOT QUOTE STANDARD PRICES.</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        // ============================================================
+        // SCENARIO 3: NORMAL STOCK
+        // ============================================================
+        banner.className = "status-banner normal";
+        banner.innerHTML = `
+            <span>✅ Stock Available (FSV)</span>
+            <span>Delivery: Urgent / Same Day</span>
+        `;
+
+        if (frameType === 'sunglasses') {
+            let polarPrice = hasCylinder ? "Rs. 6500" : "Rs. 2800";
+            
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Tintable Lens</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Standard Tint</span>
+                            <span class="opt-price">Rs. 1300</span>
+                        </div>
+                        <ul class="opt-features">
+                            <li>Matches sunglass color</li>
+                            <li>UV Protective</li>
+                            <li><em>Takes time to color</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="opt-card">
+                    <div class="opt-header">Polarized Lens</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Polarized</span>
+                            <span class="opt-price">${polarPrice}</span>
+                        </div>
+                        <ul class="opt-features">
+                            <li>Black / Brown / Green</li>
+                            <li>100% UV Protective & Polarized</li>
+                            <li>${hasCylinder ? 'Includes Cylinder Charge' : 'Spherical Only'}</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+        } else {
+            // STANDARD EYEGLASS OPTIONS
+            
+            // 1. Photochromic
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Photochromic (Changes Color)</div>
+                    <div class="opt-body">
+                        
+                        <div class="opt-item">
+                            <span class="opt-name">Cliff Photo-Z UV</span>
+                            <span class="opt-price">Rs. 4800</span>
+                        </div>
+                        <ul class="opt-features"><li>1-Year Coating Warranty</li></ul>
+
+                        <div class="opt-item" style="margin-top:10px;">
+                            <span class="opt-name">Local Photo + Blue</span>
+                            <span class="opt-price">Rs. 2000</span>
+                        </div>
+                        <ul class="opt-features">
+                             <li>Blue Cut</li><li>UV Protection</li><li>Changeable</li>
+                        </ul>
+                        
+                        <div class="opt-item" style="margin-top:10px;">
+                            <span class="opt-name">Local Photo Only</span>
+                            <span class="opt-price">Rs. 1200</span>
+                        </div>
+                         <ul class="opt-features">
+                             <li>UV Protection</li><li>Changeable</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // 2. Blue Cut Options
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Blue Cut / Computer</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Grade A+ (Combo)</span>
+                            <span class="opt-price">Rs. 2400</span>
+                        </div>
+                        <ul class="opt-features">
+                            <li>Blue+Green Coat</li><li>Super Hydrophobic</li>
+                            <li>Night Drive</li><li>Anti-Fog Cloth</li>
+                        </ul>
+                        <div class="opt-item" style="margin-top:10px;">
+                            <span class="opt-name">Grade A</span>
+                            <span class="opt-price">Rs. 1600</span>
+                        </div>
+                        <ul class="opt-features">
+                            <li>Anti-Scratch</li><li>Water Repellent</li>
+                            <li>Standard Blue Filter</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // 3. Branded Options
+            grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Branded Blue Filter</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <div class="opt-name">Synchrony HMC+</div>
+                            <div class="opt-price">Rs. 3200</div>
+                        </div>
+                        <ul class="opt-features"><li>1-Year Coating Warranty</li></ul>
+                        
+                        <div class="opt-item" style="margin-top:10px;">
+                            <div class="opt-name">Zeiss DuraVision</div>
+                            <div class="opt-price">Rs. 5640</div>
+                        </div>
+                        <ul class="opt-features"><li>1-Year Coating Warranty</li></ul>
+                    </div>
+                </div>
+            `;
+            
+            // 4. Budget
+             grid.innerHTML += `
+                <div class="opt-card">
+                    <div class="opt-header">Budget / Spare</div>
+                    <div class="opt-body">
+                        <div class="opt-item">
+                            <span class="opt-name">Hardcoat Lens</span>
+                            <span class="opt-price">Rs. 400</span>
+                        </div>
+                        <ul class="opt-features">
+                            <li>Basic Power Addition</li>
+                            <li>Scratch Resistant Only</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
