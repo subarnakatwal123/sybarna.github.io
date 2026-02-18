@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DV / NV Converter</title>
+<title>Contact Lens Converter</title>
 <style>
     :root {
-        /* Theme Variables */
+        /* Theme Variables matching Dashboard */
         --primary: #2563eb;
         --primary-dark: #1e40af;
         --accent: #3b82f6;
@@ -16,11 +16,13 @@
         --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         --radius: 16px;
 
-        /* Specific Tool Colors */
-        --dv-color: #0ea5e9; /* Sky Blue */
-        --nv-color: #22c55e; /* Green */
-        --error-bg: #fee2e2;
-        --error-text: #991b1b;
+        /* Eye Colors */
+        --od-color: #2563eb; /* Blue */
+        --os-color: #16a34a; /* Green */
+        
+        /* Banner Colors */
+        --success-bg: #dcfce7;
+        --success-text: #166534;
         --warn-bg: #fef9c3;
         --warn-text: #854d0e;
     }
@@ -59,27 +61,11 @@
         align-items: center;
     }
 
-    .header-title-group {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
     .widget-header h3 {
         margin: 0;
         font-size: 1.25rem;
         font-weight: 800;
         color: var(--primary);
-    }
-
-    .badge {
-        background: var(--accent);
-        color: white;
-        font-size: 0.7rem;
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
     }
 
     .back-link {
@@ -91,18 +77,7 @@
     }
     .back-link:hover { color: var(--primary); }
 
-    /* ALERT BOX */
-    .alert-box {
-        display: none;
-        padding: 15px 30px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    .alert-error { background: var(--error-bg); color: var(--error-text); }
-    .alert-warn { background: var(--warn-bg); color: var(--warn-text); }
-
-    /* FORM INPUTS */
+    /* FORM SECTION */
     .form-section { padding: 30px; }
 
     .rx-row {
@@ -119,14 +94,15 @@
     .eye-label {
         font-weight: 900;
         width: 40px;
-        color: var(--primary);
         font-size: 1.2rem;
         padding-bottom: 12px;
     }
+    .od-text { color: var(--od-color); }
+    .os-text { color: var(--os-color); }
 
-    .field-group { flex: 1; }
+    .input-group { flex: 1; }
     
-    .field-group label {
+    .input-group label {
         display: block;
         font-size: 0.75rem;
         font-weight: 700;
@@ -136,61 +112,67 @@
         letter-spacing: 0.5px;
     }
 
-    input[type="number"] {
+    .rx-input {
         width: 100%;
         padding: 12px;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
-        font-size: 1rem;
         font-weight: 600;
-        box-sizing: border-box;
+        font-size: 1rem;
+        box-sizing: border-box; 
         transition: all 0.2s;
     }
-    input[type="number"]:focus {
-        border-color: var(--primary);
+    .rx-input:focus { 
+        border-color: var(--primary); 
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        outline: none;
+        outline: none; 
     }
 
-    .add-row {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px dashed #cbd5e1;
-        display: flex;
-        align-items: flex-end;
-        gap: 20px;
-    }
-
-    .btn-convert {
-        flex: 1;
-        height: 48px;
+    .btn-calc {
+        width: 100%;
+        padding: 16px;
         background: linear-gradient(to right, #2563eb, #3b82f6);
         color: white;
         border: none;
         border-radius: 12px;
+        font-size: 1.1rem;
         font-weight: 700;
-        font-size: 1rem;
         cursor: pointer;
+        margin-top: 10px;
         transition: transform 0.2s, box-shadow 0.2s;
         box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
     }
-    .btn-convert:hover {
+    .btn-calc:hover { 
         transform: translateY(-2px);
         box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
     }
 
-    /* RESULTS SECTION */
-    .results-section {
-        display: none;
+    /* RESULTS AREA */
+    .results-area {
         padding: 30px;
+        display: none;
         background: rgba(255,255,255,0.4);
         border-top: 1px solid rgba(0,0,0,0.05);
     }
 
+    /* Pack Banner */
+    .pack-banner {
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        font-size: 1rem;
+    }
+    .pack-same { background: var(--success-bg); color: var(--success-text); border-color: #bbf7d0; }
+    .pack-diff { background: var(--warn-bg); color: var(--warn-text); border-color: #fde047; }
+
+    /* Result Cards */
     .res-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
     }
 
     .res-card {
@@ -199,52 +181,45 @@
         border-radius: 16px;
         overflow: hidden;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        transition: transform 0.3s;
     }
-    .res-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -5px rgba(0,0,0,0.1); }
 
-    .res-head {
+    .res-header {
         padding: 15px 20px;
         color: white;
         font-weight: 700;
         text-transform: uppercase;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         letter-spacing: 1px;
     }
-    .dv-theme { background: linear-gradient(to right, #0ea5e9, #0284c7); } /* Cyan Gradient */
-    .nv-theme { background: linear-gradient(to right, #22c55e, #16a34a); } /* Green Gradient */
+    .header-od { background: var(--od-color); }
+    .header-os { background: var(--os-color); }
 
-    .res-table { width: 100%; border-collapse: collapse; }
-    
-    .res-table th {
-        text-align: left;
-        font-size: 0.75rem;
-        color: var(--text-light);
-        padding: 12px 20px;
-        border-bottom: 1px solid #f1f5f9;
-        background: #f8fafc;
+    .res-body {
+        padding: 25px;
+        text-align: center;
     }
-    
-    .res-table td {
-        padding: 12px 20px;
-        font-weight: 600;
-        font-size: 1.1rem;
+
+    .res-power {
+        font-size: 1.8rem;
+        font-weight: 800;
         color: var(--text-main);
-        border-bottom: 1px dashed #f1f5f9;
+        margin-bottom: 10px;
     }
-    .res-table tr:last-child td { border-bottom: none; }
 
-    .diff-val { color: var(--nv-color); font-weight: 800; } 
+    .res-note {
+        display: inline-block;
+        font-size: 0.85rem;
+        color: var(--text-light);
+        background: #f1f5f9;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
 
-    /* Helper utilities */
-    .hidden { display: none !important; }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 650px) {
+    /* Responsiveness */
+    @media (max-width: 600px) {
         .rx-row { flex-direction: column; align-items: stretch; gap: 10px; }
         .eye-label { padding-bottom: 0; margin-bottom: 5px; border-bottom: 1px solid #eee; width: 100%; }
-        .add-row { flex-direction: column; align-items: stretch; }
-        .btn-convert { width: 100%; }
+        .input-group { margin-bottom: 5px; }
     }
 
 </style>
@@ -253,221 +228,212 @@
 
 <div class="widget-container">
     <div class="widget-header">
-        <div class="header-title-group">
-            <h3>Optics Lab Converter</h3>
-            <span class="badge">SafeMode v2.0</span>
-        </div>
+        <h3>Contact Lens Converter</h3>
         <a href="index.html" class="back-link">← Back to Dashboard</a>
     </div>
 
-    <div id="alertArea" class="alert-box"></div>
-
     <div class="form-section">
         <div class="rx-row">
-            <div class="eye-label">OD</div>
-            <div class="field-group">
+            <div class="eye-label od-text">OD</div>
+            <div class="input-group">
                 <label>Sphere</label>
-                <input type="number" id="od-sph" step="0.25" placeholder="0.00">
+                <input type="number" id="cl-od-sph" class="rx-input" step="0.25" placeholder="-3.00">
             </div>
-            <div class="field-group">
+            <div class="input-group">
                 <label>Cylinder</label>
-                <input type="number" id="od-cyl" step="0.25" placeholder="0.00">
+                <input type="number" id="cl-od-cyl" class="rx-input" step="0.25" placeholder="0.00">
             </div>
-            <div class="field-group">
+            <div class="input-group">
                 <label>Axis</label>
-                <input type="number" id="od-axis" placeholder="1-180">
+                <input type="number" id="cl-od-axis" class="rx-input" placeholder="180">
             </div>
         </div>
 
         <div class="rx-row">
-            <div class="eye-label">OS</div>
-            <div class="field-group">
+            <div class="eye-label os-text">OS</div>
+            <div class="input-group">
                 <label>Sphere</label>
-                <input type="number" id="os-sph" step="0.25" placeholder="0.00">
+                <input type="number" id="cl-os-sph" class="rx-input" step="0.25" placeholder="-3.00">
             </div>
-            <div class="field-group">
+            <div class="input-group">
                 <label>Cylinder</label>
-                <input type="number" id="os-cyl" step="0.25" placeholder="0.00">
+                <input type="number" id="cl-os-cyl" class="rx-input" step="0.25" placeholder="0.00">
             </div>
-            <div class="field-group">
+            <div class="input-group">
                 <label>Axis</label>
-                <input type="number" id="os-axis" placeholder="1-180">
+                <input type="number" id="cl-os-axis" class="rx-input" placeholder="180">
             </div>
         </div>
 
-        <div class="add-row">
-            <div class="field-group" style="max-width: 150px;">
-                <label>Addition (+)</label>
-                <input type="number" id="rx-add" step="0.25" placeholder="+2.00">
-            </div>
-            <button class="btn-convert" onclick="processPrescription()">Convert to Single Vision</button>
-        </div>
+        <button class="btn-calc" onclick="runConverter()">Calculate & Compare Packs</button>
     </div>
 
-    <div id="results" class="results-section">
+    <div id="cl-results" class="results-area">
+        
+        <div id="pack-banner" class="pack-banner"></div>
+
         <div class="res-grid">
-            
             <div class="res-card">
-                <div class="res-head dv-theme">Distance (Far)</div>
-                <table class="res-table">
-                    <thead><tr><th>EYE</th><th>SPH</th><th>CYL</th><th>AXIS</th></tr></thead>
-                    <tbody id="dv-body"></tbody>
-                </table>
+                <div class="res-header header-od">Right Eye (OD)</div>
+                <div class="res-body" id="res-od"></div>
             </div>
 
             <div class="res-card">
-                <div class="res-head nv-theme">Reading (Near)</div>
-                <table class="res-table">
-                    <thead><tr><th>EYE</th><th>SPH</th><th>CYL</th><th>AXIS</th></tr></thead>
-                    <tbody id="nv-body"></tbody>
-                </table>
+                <div class="res-header header-os">Left Eye (OS)</div>
+                <div class="res-body" id="res-os"></div>
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
-    // --- UTILITIES ---
+    const VERTEX_DIST = 0.012; // 12mm Standard Vertex Distance
 
-    // 1. Precise Floating Point Math
-    function cleanFloat(num) {
-        return Math.round((num + Number.EPSILON) * 100) / 100;
-    }
+    function runConverter() {
+        // 1. Calculate Each Eye
+        const od = calculateEye(
+            document.getElementById('cl-od-sph').value,
+            document.getElementById('cl-od-cyl').value,
+            document.getElementById('cl-od-axis').value
+        );
 
-    // 2. Format Display
-    function formatVal(num, isAxis = false) {
-        if (num === "" || num === null || isNaN(num)) return "0.00"; 
+        const os = calculateEye(
+            document.getElementById('cl-os-sph').value,
+            document.getElementById('cl-os-cyl').value,
+            document.getElementById('cl-os-axis').value
+        );
+
+        // 2. Render Results
+        document.getElementById('res-od').innerHTML = renderHTML(od);
+        document.getElementById('res-os').innerHTML = renderHTML(os);
+
+        // 3. PACK LOGIC (Comparison)
+        const banner = document.getElementById('pack-banner');
         
-        let val = parseFloat(num);
-        
-        // Sanitize Zero
-        if (val === 0) val = 0; 
+        if (od.status === 'valid' && os.status === 'valid') {
+            // Compare FINAL Calculated values
+            const sameSph = (od.sph === os.sph);
+            const sameCyl = (od.cyl === os.cyl);
+            const sameAxis = (od.axis === os.axis);
 
-        if (isAxis) return Math.round(val); 
-        
-        // Force 2 decimals and sign
-        return (val > 0 ? "+" : "") + val.toFixed(2);
-    }
-
-    // 3. UI Alert Helper
-    function showAlert(msg, type = "error") {
-        const el = document.getElementById('alertArea');
-        el.className = `alert-box alert-${type}`;
-        el.style.display = 'block';
-        el.innerText = (type === "error" ? "⛔ Error: " : "⚠️ Warning: ") + msg;
-        if(type === "error") {
-            document.getElementById('results').style.display = 'none'; 
-            throw new Error("Validation Failed"); 
+            if (sameSph && sameCyl && sameAxis) {
+                banner.className = "pack-banner pack-same";
+                banner.innerHTML = "✅ Same Pack Works! (Both Eyes Match)";
+            } else {
+                banner.className = "pack-banner pack-diff";
+                banner.innerHTML = "⚠️ Different Packs Required (Powers Differ)";
+            }
+            banner.style.display = 'block';
+        } else {
+            banner.style.display = 'none';
         }
+
+        // Show Section
+        document.getElementById('cl-results').style.display = 'block';
     }
 
-    // --- MAIN LOGIC ---
+    function calculateEye(s, c, a) {
+        // Handle empty input
+        if (s === "") return { status: "empty", msg: "No Input" };
 
-    function processPrescription() {
-        // Reset UI
-        document.getElementById('alertArea').style.display = 'none';
+        let sph = parseFloat(s);
+        let cyl = parseFloat(c);
+        let axis = parseFloat(a);
+
+        // Validation
+        if (isNaN(sph)) return { status: "error", msg: "Invalid Sphere" };
+        if (isNaN(cyl)) cyl = 0;
+        if (cyl !== 0 && (isNaN(axis) || a === "")) return { status: "error", msg: "Axis Missing" };
+
+        // --- MATH ENGINE ---
         
-        // 1. Gather Inputs
-        const inputs = {
-            od: {
-                sph: document.getElementById('od-sph').value,
-                cyl: document.getElementById('od-cyl').value,
-                axis: document.getElementById('od-axis').value
-            },
-            os: {
-                sph: document.getElementById('os-sph').value,
-                cyl: document.getElementById('os-cyl').value,
-                axis: document.getElementById('os-axis').value
-            },
-            add: document.getElementById('rx-add').value
+        // Helper: Vertex Formula
+        // Formula: F_new = F_old / (1 - (d * F_old))
+        // Only apply if power is >= 4.00 or <= -4.00
+        function vertex(p) {
+            if (Math.abs(p) < 4.00) return p;
+            return p / (1 - (VERTEX_DIST * p));
+        }
+
+        // Helper: Round to 0.25 steps
+        function roundStep(num) {
+            return Math.round(num * 4) / 4;
+        }
+
+        let finalSph, finalCyl, finalAxis, note;
+
+        // SCENARIO 1: SPHERICAL (No Cyl)
+        if (cyl === 0) {
+            finalSph = roundStep(vertex(sph));
+            finalCyl = 0;
+            finalAxis = 0;
+            note = (Math.abs(sph) >= 4.00) ? "Vertex Adjusted" : "Standard Fit";
+        } 
+        // SCENARIO 2: TORIC (Has Cyl)
+        else {
+            // Step A: Calculate Principal Meridians
+            let m1_spec = sph;          // Power at axis
+            let m2_spec = sph + cyl;    // Power 90 deg away
+
+            // Step B: Vertex Compensate BOTH meridians separately
+            let m1_cl = vertex(m1_spec);
+            let m2_cl = vertex(m2_spec);
+
+            // Step C: Reconstruct CL Rx
+            let newSph = m1_cl;
+            let newCyl = m2_cl - m1_cl;
+
+            // Step D: Rounding
+            finalSph = roundStep(newSph);
+            finalCyl = roundStep(newCyl);
+            finalAxis = axis;
+
+            // Step E: Low Astigmatism Check (< 0.75)
+            // If new calculated Cyl is tiny, convert to Spherical Equivalent
+            if (Math.abs(finalCyl) < 0.75) {
+                // SE Formula: Sph + (Cyl/2) - using the original values usually preferred for SE base
+                // But let's use the vertexed values for consistency
+                let se = finalSph + (finalCyl / 2);
+                finalSph = roundStep(se);
+                finalCyl = 0;
+                finalAxis = 0;
+                note = "Low Astigmatism (Spherical Equiv)";
+            } else {
+                note = "Toric Lens Required";
+            }
+        }
+
+        return { 
+            status: "valid", 
+            sph: finalSph, 
+            cyl: finalCyl, 
+            axis: finalAxis, 
+            note: note 
         };
-
-        // 2. RUN VALIDATIONS
-        if (inputs.add === "") {
-            showAlert("Addition (ADD) power is required to calculate Near Vision.");
-        }
-
-        const addVal = parseFloat(inputs.add);
-
-        if (addVal < 0) {
-            showAlert("ADD power cannot be negative. Please check input.");
-        }
-
-        if (addVal > 4.00) {
-            showAlert("High Addition power detected (> +4.00). Please verify.", "warn");
-        }
-
-        // Validate Eyes
-        validateEye('OD', inputs.od);
-        validateEye('OS', inputs.os);
-
-        if(inputs.od.sph === "" && (inputs.od.cyl || inputs.od.axis)) showAlert("OD Sphere is required.");
-        if(inputs.os.sph === "" && (inputs.os.cyl || inputs.os.axis)) showAlert("OS Sphere is required.");
-
-        // 3. CALCULATION & RENDERING
-        renderResults(inputs, addVal);
     }
 
-    function validateEye(side, data) {
-        let cyl = parseFloat(data.cyl) || 0;
-        let axis = parseFloat(data.axis);
-        let hasAxis = (data.axis !== "");
+    function renderHTML(res) {
+        if (res.status === "empty") return `<span style="color:#94a3b8">Enter Prescription</span>`;
+        if (res.status === "error") return `<span style="color:#ef4444; font-weight:bold;">${res.msg}</span>`;
 
-        if (cyl !== 0 && !hasAxis) {
-            showAlert(`${side}: Cylinder is present (${cyl}), so Axis is required.`);
-        }
+        // Format Strings
+        let s = (res.sph > 0 ? "+" : "") + res.sph.toFixed(2);
+        let c = (res.cyl > 0 ? "+" : "") + res.cyl.toFixed(2);
 
-        if (hasAxis && (axis < 1 || axis > 180)) {
-            showAlert(`${side}: Axis must be between 1 and 180.`);
-        }
-
-        if (cyl === 0 && hasAxis) {
-            showAlert(`${side}: Axis entered (${axis}) but Cylinder is 0. Axis will be ignored.`, "warn");
+        if (res.cyl === 0) {
+            return `
+                <div class="res-power">${s} DS</div>
+                <div class="res-note">${res.note}</div>
+            `;
+        } else {
+            return `
+                <div class="res-power" style="font-size:1.6rem">
+                    ${s} / ${c} x ${res.axis}
+                </div>
+                <div class="res-note">${res.note}</div>
+            `;
         }
     }
-
-    function renderResults(inputs, addVal) {
-        const odSph = parseFloat(inputs.od.sph) || 0;
-        const osSph = parseFloat(inputs.os.sph) || 0;
-
-        // MATH MAGIC
-        const odNear = cleanFloat(odSph + addVal);
-        const osNear = cleanFloat(osSph + addVal);
-
-        // Render DV Table
-        document.getElementById('dv-body').innerHTML = `
-            ${createRow('OD', inputs.od.sph, inputs.od.cyl, inputs.od.axis)}
-            ${createRow('OS', inputs.os.sph, inputs.os.cyl, inputs.os.axis)}
-        `;
-
-        // Render NV Table
-        document.getElementById('nv-body').innerHTML = `
-            ${createRow('OD', odNear, inputs.od.cyl, inputs.od.axis, true)}
-            ${createRow('OS', osNear, inputs.os.cyl, inputs.os.axis, true)}
-        `;
-
-        document.getElementById('results').style.display = 'block';
-    }
-
-    function createRow(eye, sph, cyl, axis, isNear = false) {
-        let s = formatVal(sph);
-        let c = (cyl === "" || parseFloat(cyl) === 0) ? "—" : formatVal(cyl);
-        let a = (axis === "" || parseFloat(cyl) === 0) ? "—" : formatVal(axis, true);
-
-        // Highlight the changed Sphere for Near Vision
-        let sphClass = isNear ? 'diff-val' : '';
-
-        return `
-            <tr>
-                <td style="color:var(--text-light); font-size:0.9rem;">${eye}</td>
-                <td class="${sphClass}">${s}</td>
-                <td>${c}</td>
-                <td>${a}</td>
-            </tr>
-        `;
-    }
-
 </script>
 
 </body>
